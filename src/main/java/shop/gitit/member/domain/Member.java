@@ -16,8 +16,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.util.Assert;
 import shop.gitit.core.basefield.BaseField;
 import shop.gitit.member.domain.authority.Authority;
-import shop.gitit.member.domain.goods.Goods;
 import shop.gitit.member.domain.color.GrassColor;
+import shop.gitit.member.domain.goods.Goods;
 import shop.gitit.member.domain.myprofile.MyProfile;
 import shop.gitit.member.domain.rankinfo.RankInfo;
 import shop.gitit.member.domain.rankinfo.Tier;
@@ -47,11 +47,16 @@ public class Member extends BaseField {
     @Field(name = "member_goods")
     private Goods goods;
 
-    @Field(name="member_color")
+    @Field(name = "member_color")
     private GrassColor color;
 
     @Builder
-    public Member(MyProfile profile, RankInfo rankInfo, List<Authority> authorities, Goods goods, GrassColor color) {
+    public Member(
+            MyProfile profile,
+            RankInfo rankInfo,
+            List<Authority> authorities,
+            Goods goods,
+            GrassColor color) {
         Assert.notNull(profile, IS_NULL.getMessage());
         Assert.notNull(rankInfo, IS_NULL.getMessage());
         Assert.notNull(authorities, IS_NULL.getMessage());
@@ -98,10 +103,11 @@ public class Member extends BaseField {
         return authorities;
     }
 
-    public int getPoint(){
+    public int getPoint() {
         return this.goods.getPoint();
     }
-    public GrassColor getColor(){
+
+    public GrassColor getColor() {
         return this.color;
     }
 

@@ -67,9 +67,7 @@ class MemberTest {
         member.colorDraw(subPoint, color);
 
         // then
-        assertThat(member)
-                .extracting(Member::getColor, Member::getPoint)
-                .contains(DIAMOND, 0);
+        assertThat(member).extracting(Member::getColor, Member::getPoint).contains(DIAMOND, 0);
     }
 
     @DisplayName("보유한 포인트보다 많은 포인트가 감소하면 에러가 발생한다")
@@ -82,7 +80,6 @@ class MemberTest {
         // then
         assertThatThrownBy(() -> member.colorDraw(subPoint, color))
                 .isInstanceOf(PointViolationException.class);
-
     }
 
     @DisplayName("탈퇴에 성공한다")

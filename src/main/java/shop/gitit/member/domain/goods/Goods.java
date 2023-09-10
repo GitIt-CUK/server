@@ -22,7 +22,7 @@ public class Goods {
     }
 
     public void subtractPoint(int subPoint) {
-        if(this.point < subPoint || subPoint < ZERO){
+        if (this.point < subPoint || subPoint < ZERO) {
             throw new PointViolationException();
         }
         this.point -= subPoint;

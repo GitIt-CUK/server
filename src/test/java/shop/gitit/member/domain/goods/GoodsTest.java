@@ -1,17 +1,15 @@
 package shop.gitit.member.domain.goods;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import shop.gitit.member.domain.myprofile.MyProfile;
-import shop.gitit.member.exception.NicknameLengthViolationException;
-import shop.gitit.member.exception.PointViolationException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import shop.gitit.member.exception.PointViolationException;
+
 class GoodsTest {
-    private final Goods goods = Goods.builder().point(50).build();
+    private final Goods goods = Goods.builder().build();
 
     @DisplayName("커밋 수에 따라 포인트가 더해진다")
     @Test
@@ -23,7 +21,7 @@ class GoodsTest {
         goods.addPointByCommit(addCommit);
 
         // then
-        assertThat(goods.getPoint()).isEqualTo(80);
+        assertThat(goods.getPoint()).isEqualTo(30);
     }
 
     @DisplayName("음수 포인트를 감소하면 에러가 발생한다.")
@@ -52,12 +50,12 @@ class GoodsTest {
     @Test
     void subtractPointSuccess() {
         // given
-        int subPoint = 40;
+        int subPoint = 0;
 
         // when
         goods.subtractPoint(subPoint);
 
         // then
-        assertThat(goods.getPoint()).isEqualTo(10);
+        assertThat(goods.getPoint()).isEqualTo(0);
     }
 }

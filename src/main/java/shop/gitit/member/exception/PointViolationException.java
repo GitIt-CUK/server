@@ -2,8 +2,7 @@ package shop.gitit.member.exception;
 
 public class PointViolationException extends RuntimeException {
 
-    public PointViolationException() {
-    }
+    public PointViolationException() {}
 
     public PointViolationException(String message) {
         super(message);
