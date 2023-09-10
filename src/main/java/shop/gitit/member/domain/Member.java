@@ -16,6 +16,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.util.Assert;
 import shop.gitit.core.basefield.BaseField;
 import shop.gitit.member.domain.authority.Authority;
+import shop.gitit.member.domain.goods.Goods;
+import shop.gitit.member.domain.color.GrassColor;
 import shop.gitit.member.domain.myprofile.MyProfile;
 import shop.gitit.member.domain.rankinfo.RankInfo;
 import shop.gitit.member.domain.rankinfo.Tier;
@@ -42,13 +44,23 @@ public class Member extends BaseField {
     @Field(name = "member_authorities")
     private List<Authority> authorities = new ArrayList<>();
 
+    @Field(name = "member_goods")
+    private Goods goods;
+
+    @Field(name="member_color")
+    private GrassColor color;
+
     @Builder
-    public Member(MyProfile profile, RankInfo rankInfo, List<Authority> authorities) {
+    public Member(MyProfile profile, RankInfo rankInfo, List<Authority> authorities, Goods goods, GrassColor color) {
         Assert.notNull(profile, IS_NULL.getMessage());
         Assert.notNull(rankInfo, IS_NULL.getMessage());
         Assert.notNull(authorities, IS_NULL.getMessage());
+        Assert.notNull(color, IS_NULL.getMessage());
+        Assert.notNull(goods, IS_NULL.getMessage());
         this.profile = profile;
         this.rankInfo = rankInfo;
+        this.color = color;
+        this.goods = goods;
         this.authorities = authorities;
         this.status = ACTIVE;
     }
@@ -74,7 +86,8 @@ public class Member extends BaseField {
     }
 
     public void updateRankInfo(int commitCount) {
-        this.rankInfo.updateRankInfo(commitCount);
+        int addCommit = this.rankInfo.updateRankInfo(commitCount);
+        this.goods.addPointByCommit(addCommit);
     }
 
     public MemberStatus getStatus() {
@@ -83,6 +96,18 @@ public class Member extends BaseField {
 
     public List<Authority> getAuthorities() {
         return authorities;
+    }
+
+    public int getPoint(){
+        return this.goods.getPoint();
+    }
+    public GrassColor getColor(){
+        return this.color;
+    }
+
+    public void colorDraw(int subPoint, GrassColor color) {
+        this.goods.subtractPoint(subPoint);
+        this.color = color;
     }
 
     public void withdrawn() {

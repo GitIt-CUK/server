@@ -24,10 +24,12 @@ public class RankInfo {
         this.tier = Tier.IRON;
     }
 
-    public void updateRankInfo(int commitCount) {
+    public int updateRankInfo(int commitCount) {
+        int addCommit = commitCount - this.commitCount;
         validateCommitCountRange(commitCount);
         this.commitCount = commitCount;
         this.tier = updateTier(commitCount);
+        return addCommit;
     }
 
     private void validateCommitCountRange(int commitCount) {
