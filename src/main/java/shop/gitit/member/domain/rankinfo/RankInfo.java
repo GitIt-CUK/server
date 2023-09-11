@@ -25,8 +25,8 @@ public class RankInfo {
     }
 
     public int updateRankInfo(int commitCount) {
-        int addCommit = commitCount - this.commitCount;
         validateCommitCountRange(commitCount);
+        int addCommit = commitCount - this.commitCount;
         this.commitCount = commitCount;
         this.tier = updateTier(commitCount);
         return addCommit;

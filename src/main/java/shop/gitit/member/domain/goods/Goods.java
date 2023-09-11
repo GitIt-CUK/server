@@ -8,17 +8,18 @@ import shop.gitit.member.exception.PointViolationException;
 @Getter
 public class Goods {
     private static final int ZERO = 0;
+    private static final int DRAW_COST = 10;
 
-    @Field(name = "member_commit_count")
+    @Field(name = "member_point")
     private int point;
 
     @Builder
-    public Goods(int point) {
-        this.point = point;
+    public Goods() {
+        this.point = ZERO;
     }
 
     public void addPointByCommit(int addCommit) {
-        this.point += addCommit * 10;
+        this.point += addCommit * DRAW_COST;
     }
 
     public void subtractPoint(int subPoint) {
