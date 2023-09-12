@@ -9,7 +9,6 @@ public class MemberFixture {
     private static final int NEGATIVE_POINT = -1;
     private static final int POSITIVE_POINT = 10;
 
-
     public static Member getMember() {
         return Member.builder()
                 .profile(MyProfileFixture.getMyProfile())

@@ -1,16 +1,17 @@
 package shop.gitit.member.domain.myprofile;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.member.exception.NicknameLengthViolationException;
 import shop.gitit.support.fixture.member.myprofile.MyProfileFixture;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 class MyProfileTest {
 
     private final MyProfile profile = MyProfileFixture.getMyProfile();
+
     @DisplayName("빈 문자열로 닉네임을 교체하면 에러를 던진다.")
     @Test
     void emptyNickname() {
@@ -54,7 +55,7 @@ class MyProfileTest {
     @Test
     void normalNickname() {
         // given
-        String nickname =  MyProfileFixture.lengthOfNickname(6);
+        String nickname = MyProfileFixture.lengthOfNickname(6);
 
         // when
         profile.updateNickname(nickname);

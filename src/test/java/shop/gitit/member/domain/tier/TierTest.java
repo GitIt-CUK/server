@@ -1,11 +1,11 @@
 package shop.gitit.member.domain.tier;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static shop.gitit.member.domain.tier.Tier.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.support.fixture.member.tier.TierFixture;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static shop.gitit.member.domain.tier.Tier.*;
 
 class TierTest {
 

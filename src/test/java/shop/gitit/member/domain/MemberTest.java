@@ -1,14 +1,14 @@
 package shop.gitit.member.domain;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import shop.gitit.member.exception.PointViolationException;
-import shop.gitit.support.fixture.member.MemberFixture;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static shop.gitit.member.domain.grasscolor.GrassColor.GREEN;
 import static shop.gitit.member.domain.tier.Tier.IRON;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import shop.gitit.member.exception.PointViolationException;
+import shop.gitit.support.fixture.member.MemberFixture;
 
 class MemberTest {
 

@@ -1,12 +1,12 @@
 package shop.gitit.member.domain.point;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.member.exception.PointViolationException;
 import shop.gitit.support.fixture.member.point.PointFixture;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PointTest {
 
@@ -32,8 +32,7 @@ class PointTest {
         // when
 
         // then
-        assertThatThrownBy(() -> point.minus(subPoint))
-                .isInstanceOf(PointViolationException.class);
+        assertThatThrownBy(() -> point.minus(subPoint)).isInstanceOf(PointViolationException.class);
     }
 
     @DisplayName("음수 포인트를 소모하면 에러를 던진다.")
@@ -45,8 +44,7 @@ class PointTest {
         // when
 
         // then
-        assertThatThrownBy(() -> point.minus(subPoint))
-                .isInstanceOf(PointViolationException.class);
+        assertThatThrownBy(() -> point.minus(subPoint)).isInstanceOf(PointViolationException.class);
     }
 
     @DisplayName("포인트를 소모한다.")

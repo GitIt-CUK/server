@@ -1,5 +1,9 @@
 package shop.gitit.member.domain.myprofile;
 
+import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,18 +11,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 import shop.gitit.member.exception.NicknameLengthViolationException;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
-
-import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
-
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MyProfile {
 
-    @Transient
-    private static final int MAX_NICKNAME_LENGTH = 6;
+    @Transient private static final int MAX_NICKNAME_LENGTH = 6;
 
     private String githubId;
 

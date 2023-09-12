@@ -1,17 +1,15 @@
 package shop.gitit.github.domain.commitcount;
 
-import lombok.Getter;
-import shop.gitit.member.exception.CommitCountViolationException;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
+import lombok.Getter;
+import shop.gitit.member.exception.CommitCountViolationException;
 
 @Embeddable
 @Getter
 public class CommitCount {
 
-    @Transient
-    private static final int ZERO = 0;
+    @Transient private static final int ZERO = 0;
 
     private int count;
 
@@ -38,4 +36,3 @@ public class CommitCount {
         this.count += commitCount;
     }
 }
-

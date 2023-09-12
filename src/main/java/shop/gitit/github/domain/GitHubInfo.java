@@ -1,12 +1,11 @@
 package shop.gitit.github.domain;
 
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.github.domain.commitcount.CommitCount;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "GITHUB_INFO")
@@ -20,6 +19,8 @@ public class GitHubInfo extends BaseEntity {
     private Long id;
 
     @Embedded
-    @AttributeOverride(name = "count", column = @Column(name = "github_info_commit_count", nullable = false))
+    @AttributeOverride(
+            name = "count",
+            column = @Column(name = "github_info_commit_count", nullable = false))
     private CommitCount commitCount;
 }

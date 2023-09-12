@@ -1,11 +1,10 @@
 package shop.gitit.member.domain.authority;
 
+import javax.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
