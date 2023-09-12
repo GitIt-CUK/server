@@ -33,10 +33,6 @@ public enum GrassColor {
     }
 
     private static GrassColor findColorByCode(String color) {
-        GrassColor grassColor = GrassColor.valueOf(color);
-        if (grassColor == null) {
-            throw new IllegalArgumentException();
-        }
-        return grassColor;
+        return GrassColor.valueOf(color);
     }
 }
