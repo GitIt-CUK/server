@@ -1,25 +1,36 @@
 package shop.gitit.member.domain.myprofile;
 
-import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
-
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Field;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 import shop.gitit.member.exception.NicknameLengthViolationException;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+
+import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
+
+@Embeddable
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MyProfile {
 
+    @Transient
     private static final int MAX_NICKNAME_LENGTH = 6;
 
-    @Field(name = "member_github_id")
     private String githubId;
 
-    @Field(name = "member_nickname")
     private String nickname;
+
+    @Builder
+    public MyProfile(String githubId, String nickname) {
+        Assert.notNull(githubId, IS_NULL.getMessage());
+        Assert.notNull(nickname, IS_NULL.getMessage());
+        this.githubId = githubId;
+        this.nickname = nickname;
+    }
 
     public void updateNickname(String nickname) {
         validateNickname(nickname);
@@ -27,13 +38,12 @@ public class MyProfile {
     }
 
     private void validateNickname(String nickname) {
-        Assert.notNull(nickname, IS_NULL.getMessage());
-        if (lengthViolation(nickname)) {
+        if (isInvalid(nickname)) {
             throw new NicknameLengthViolationException();
         }
     }
 
-    private boolean lengthViolation(String nickname) {
-        return nickname.length() > MAX_NICKNAME_LENGTH || nickname.isEmpty();
+    private boolean isInvalid(String nickname) {
+        return nickname == null || nickname.length() > MAX_NICKNAME_LENGTH || nickname.isEmpty();
     }
 }

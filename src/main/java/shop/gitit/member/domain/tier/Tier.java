@@ -1,4 +1,4 @@
-package shop.gitit.member.domain.rankinfo;
+package shop.gitit.member.domain.tier;
 
 import java.util.stream.Stream;
 
@@ -38,5 +38,9 @@ public enum Tier {
                 .filter(tier -> tier.limit <= commitCount)
                 .reduce(((first, second) -> second))
                 .orElse(GOAT);
+    }
+
+    public static Tier init() {
+        return IRON;
     }
 }
