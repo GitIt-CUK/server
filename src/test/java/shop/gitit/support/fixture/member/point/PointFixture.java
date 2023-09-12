@@ -12,7 +12,7 @@ public class PointFixture {
         return commitCount;
     }
 
-    public static int subPointOf(int point) {
+    public static int pointOf(int point) {
         return point;
     }
 }

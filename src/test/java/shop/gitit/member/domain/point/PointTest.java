@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class PointTest {
 
     private final Point point = PointFixture.getPoint();
-    private final int POINT_PER_COMMIT = 10;
 
     @DisplayName("최초 포인트는 0이다.")
     @Test
@@ -24,24 +23,11 @@ class PointTest {
         assertThat(point.getPoint()).isZero();
     }
 
-    @DisplayName("추가된 커밋마다 10포인트가 적립된다.")
-    @Test
-    void plusPoint() {
-        // given
-        int commitCount = PointFixture.commitCountOf(10);
-
-        // when
-        point.plus(commitCount);
-
-        // then
-        assertThat(point.getPoint()).isEqualTo(commitCount * POINT_PER_COMMIT);
-    }
-
     @DisplayName("현재 포인트보다 더 많은 포인트를 소모하면 에러를 던진다.")
     @Test
     void minusOverPoint() {
         // given
-        int subPoint = point.getPoint() + PointFixture.subPointOf(10);
+        int subPoint = point.getPoint() + PointFixture.pointOf(10);
 
         // when
 
@@ -54,7 +40,7 @@ class PointTest {
     @Test
     void minusNegativePoint() {
         // given
-        int subPoint = PointFixture.subPointOf(-10);
+        int subPoint = PointFixture.pointOf(-10);
 
         // when
 
@@ -67,14 +53,14 @@ class PointTest {
     @Test
     void minusPoint() {
         // given
-        int commitCount = PointFixture.commitCountOf(10);
-        int subPoint = PointFixture.subPointOf(10);
+        int plusPoint = PointFixture.pointOf(10);
+        int subPoint = PointFixture.pointOf(5);
 
         // when
-        point.plus(commitCount);
+        point.plus(plusPoint);
         point.minus(subPoint);
 
         // then
-        assertThat(point.getPoint()).isEqualTo(commitCount * POINT_PER_COMMIT - subPoint);
+        assertThat(point.getPoint()).isEqualTo(plusPoint - subPoint);
     }
 }
