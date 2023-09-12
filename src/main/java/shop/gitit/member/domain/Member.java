@@ -74,6 +74,18 @@ public class Member extends BaseEntity {
         this.status = INACTIVE;
     }
 
+    public int getPoint() {
+        return this.point.getPoint();
+    }
+
+    public void plusPoint(int addedPoint) {
+        this.point.plus(addedPoint);
+    }
+
+    public void minusPoint(int subPoint) {
+        this.point.minus(subPoint);
+    }
+
     private boolean alreadyWithdrawn() {
         return this.status.equals(INACTIVE);
     }

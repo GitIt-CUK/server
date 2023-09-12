@@ -21,12 +21,11 @@ public class Point {
         this.point = ZERO;
     }
 
-    public void plus(int addedCommit) {
-        this.point += exchange(addedCommit);
-    }
-
-    private int exchange(int addedCommit) {
-        return addedCommit * POINT_PER_COMMIT;
+    public void plus(int addedPoint) {
+        if (addedPoint < ZERO) {
+            throw new PointViolationException();
+        }
+        this.point += addedPoint;
     }
 
     public void minus(int subPoint) {
