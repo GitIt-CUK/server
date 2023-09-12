@@ -9,20 +9,19 @@ import static shop.gitit.member.domain.tier.Tier.*;
 
 class TierTest {
 
-    @DisplayName("커밋 수가 0이면 아이언이다")
+    @DisplayName("최초 티어는 아이언이다.")
     @Test
     void input0() {
         // given
-        int commitCount = TierFixture.commitCountOf(0);
+        Tier tier = init();
 
         // when
-        Tier result = updateTier(commitCount);
 
         // then
-        assertThat(result).isEqualTo(IRON);
+        assertThat(tier).isEqualTo(IRON);
     }
 
-    @DisplayName("커밋 수가 103이면 골드2다")
+    @DisplayName("커밋 수가 103이면 골드2다.")
     @Test
     void input103() {
         // given
@@ -35,7 +34,7 @@ class TierTest {
         assertThat(result).isEqualTo(GOLD2);
     }
 
-    @DisplayName("커밋 수가 20억이면 GOAT다")
+    @DisplayName("커밋 수가 20억이면 GOAT다.")
     @Test
     void input200000000() {
         // given
