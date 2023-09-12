@@ -12,8 +12,6 @@ public class Point {
 
     @Transient
     private static final int ZERO = 0;
-    @Transient
-    private static final int POINT_PER_COMMIT = 10;
 
     private int point;
 
