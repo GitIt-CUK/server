@@ -11,23 +11,23 @@ public class Point {
 
     @Transient private static final int ZERO = 0;
 
-    private int point;
+    private int coin;
 
     public Point() {
-        this.point = ZERO;
+        this.coin = ZERO;
     }
 
     public void plus(int addedPoint) {
         if (addedPoint < ZERO) {
             throw new PointViolationException();
         }
-        this.point += addedPoint;
+        this.coin += addedPoint;
     }
 
     public void minus(int subPoint) {
-        if (this.point < subPoint || subPoint < ZERO) {
+        if (this.coin < subPoint || subPoint < ZERO) {
             throw new PointViolationException();
         }
-        this.point -= subPoint;
+        this.coin -= subPoint;
     }
 }

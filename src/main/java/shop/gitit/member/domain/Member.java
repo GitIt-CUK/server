@@ -78,7 +78,7 @@ public class Member extends BaseEntity {
     }
 
     public int getPoint() {
-        return this.point.getPoint();
+        return this.point.getCoin();
     }
 
     public void plusPoint(int addedPoint) {

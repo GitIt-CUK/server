@@ -20,14 +20,14 @@ class PointTest {
         // when
 
         // then
-        assertThat(point.getPoint()).isZero();
+        assertThat(point.getCoin()).isZero();
     }
 
     @DisplayName("현재 포인트보다 더 많은 포인트를 소모하면 에러를 던진다.")
     @Test
     void minusOverPoint() {
         // given
-        int subPoint = point.getPoint() + PointFixture.pointOf(10);
+        int subPoint = point.getCoin() + PointFixture.pointOf(10);
 
         // when
 
@@ -59,6 +59,6 @@ class PointTest {
         point.minus(subPoint);
 
         // then
-        assertThat(point.getPoint()).isEqualTo(plusPoint - subPoint);
+        assertThat(point.getCoin()).isEqualTo(plusPoint - subPoint);
     }
 }
