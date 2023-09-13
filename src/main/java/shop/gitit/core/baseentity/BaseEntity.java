@@ -2,6 +2,7 @@ package shop.gitit.core.baseentity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
+@MappedSuperclass
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseEntity {
 
