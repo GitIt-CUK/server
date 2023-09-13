@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.github.domain.grasscolor.GrassColor;
-import shop.gitit.github.domain.member.MemberId;
+import shop.gitit.github.domain.memberid.MemberId;
 import shop.gitit.github.domain.tier.Tier;
 
 class GitHubInfoTest {

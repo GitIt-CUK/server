@@ -1,4 +1,4 @@
-package shop.gitit.github.domain.member;
+package shop.gitit.github.domain.memberid;
 
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;
