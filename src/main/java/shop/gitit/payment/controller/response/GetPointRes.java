@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class GetPointRes {
 
+    private String message;
     private long memberId;
     private int point;
 }

@@ -14,6 +14,7 @@ public final class PaymentMapper {
 
     public static GetPointRes toRes(GetPointDto.Response response) {
         return GetPointRes.builder()
+                .message("포인트 조회에 성공하였습니다.")
                 .point(response.getPoint())
                 .memberId(response.getMemberId())
                 .build();
