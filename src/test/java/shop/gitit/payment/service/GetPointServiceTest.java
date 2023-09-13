@@ -19,6 +19,7 @@ import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.payment.service.dto.GetPointDto;
 import shop.gitit.payment.service.usecase.GetPointUsecase;
+import shop.gitit.support.fixture.payment.WalletFixture;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {GetPointService.class})
@@ -40,10 +41,8 @@ class GetPointServiceTest {
             @Test
             void success() {
                 // given
-                long memberId = 1L;
-                GetPointDto.Request request =
-                        GetPointDto.Request.builder().memberId(memberId).build();
-                Wallet wallet = new Wallet(memberId);
+                GetPointDto.Request request = WalletFixture.defaultRequest();
+                Wallet wallet = WalletFixture.defaultWallet();
 
                 // when
                 when(paymentRepository.findWalletByOwnerId(anyLong()))
@@ -66,10 +65,8 @@ class GetPointServiceTest {
             @Test
             void throwNoWalletException() {
                 // given
-                long memberId = 1L;
-                GetPointDto.Request request =
-                        GetPointDto.Request.builder().memberId(memberId).build();
-                Wallet wallet = new Wallet(memberId);
+                GetPointDto.Request request = WalletFixture.defaultRequest();
+                Wallet wallet = WalletFixture.defaultWallet();
 
                 // when
                 when(paymentRepository.findWalletByOwnerId(anyLong())).thenReturn(Optional.empty());
