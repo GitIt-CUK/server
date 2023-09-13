@@ -3,7 +3,7 @@ package shop.gitit.github.domain.commitcount;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import lombok.Getter;
-import shop.gitit.member.exception.CommitCountViolationException;
+import shop.gitit.github.exception.CommitCountViolationException;
 
 @Embeddable
 @Getter

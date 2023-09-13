@@ -2,115 +2,38 @@ package shop.gitit.member.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static shop.gitit.member.domain.grasscolor.GrassColor.GREEN;
-import static shop.gitit.member.domain.tier.Tier.IRON;
+import static shop.gitit.member.domain.status.MemberStatus.INACTIVE;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import shop.gitit.member.exception.PointViolationException;
+import shop.gitit.member.exception.AlreadyWithdrawnException;
 import shop.gitit.support.fixture.member.MemberFixture;
 
 class MemberTest {
 
-    private final Member member = MemberFixture.getMember();
+    private Member member = MemberFixture.getMember();
 
-    @DisplayName("최초 회원의 포인트는 0이다.")
+    @DisplayName("이미 탈퇴한 회원이 탈퇴 요청 시 에러를 던진다.")
     @Test
-    void firstPoint() {
+    void alreadyWithdrawn() {
         // given
 
         // when
+        member.withdrawn();
 
         // then
-        assertThat(member.getPoint()).isZero();
+        assertThatThrownBy(() -> member.withdrawn()).isInstanceOf(AlreadyWithdrawnException.class);
     }
 
-    @DisplayName("최초 회원의 티어는 아이언이다.")
+    @DisplayName("회원탈퇴를 하면 상태값이 변경된다.")
     @Test
-    void firstTier() {
+    void withdrawn() {
         // given
 
         // when
+        member.withdrawn();
 
         // then
-        assertThat(member.getTier()).isEqualTo(IRON);
-    }
-
-    @DisplayName("최초 회원의 잔디 색깔은 GREEN이다.")
-    @Test
-    void firstGrassColor() {
-        // given
-
-        // when
-
-        // then
-        assertThat(member.getGrassColor()).isEqualTo(GREEN);
-    }
-
-    @DisplayName("음수 포인트를 더하면 에러를 던진다.")
-    @Test
-    void plusNegativePoint() {
-        // given
-        int point = MemberFixture.negativePoint();
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> member.plusPoint(point))
-                .isInstanceOf(PointViolationException.class);
-    }
-
-    @DisplayName("양수 포인트를 더하면 적립된다.")
-    @Test
-    void plusPositivePoint() {
-        // given
-        int point = MemberFixture.positivePoint();
-
-        // when
-        member.plusPoint(point);
-
-        // then
-        assertThat(member.getPoint()).isEqualTo(point);
-    }
-
-    @DisplayName("음수 포인트를 빼면 에러를 던진다.")
-    @Test
-    void minusNegativePoint() {
-        // given
-        int point = MemberFixture.negativePoint();
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> member.minusPoint(point))
-                .isInstanceOf(PointViolationException.class);
-    }
-
-    @DisplayName("현재 포인트보다 더 큰 수를 빼면 에러를 던진다.")
-    @Test
-    void minusMaximumPoint() {
-        // given
-        int point = member.getPoint() + MemberFixture.positivePoint();
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> member.minusPoint(point))
-                .isInstanceOf(PointViolationException.class);
-    }
-
-    @DisplayName("포인트를 소모한다.")
-    @Test
-    void minusNormalPoint() {
-        // given
-        int plusPoint = MemberFixture.positivePoint();
-        int subPoint = MemberFixture.pointOf(5);
-
-        // when
-        member.plusPoint(plusPoint);
-        member.minusPoint(subPoint);
-
-        // then
-        assertThat(member.getPoint()).isEqualTo(plusPoint - subPoint);
+        assertThat(member.getStatus()).isEqualTo(INACTIVE);
     }
 }
