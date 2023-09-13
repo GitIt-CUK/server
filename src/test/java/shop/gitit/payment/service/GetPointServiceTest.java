@@ -41,7 +41,7 @@ class GetPointServiceTest {
             @Test
             void success() {
                 // given
-                GetPointDto.Request request = WalletFixture.getPointDtoRequest();
+                GetPointDto.Request request = WalletFixture.defaultGetPointDtoRequest();
                 Wallet wallet = WalletFixture.defaultWallet();
 
                 // when
@@ -65,7 +65,7 @@ class GetPointServiceTest {
             @Test
             void throwNoWalletException() {
                 // given
-                GetPointDto.Request request = WalletFixture.getPointDtoRequest();
+                GetPointDto.Request request = WalletFixture.defaultGetPointDtoRequest();
                 Wallet wallet = WalletFixture.defaultWallet();
 
                 // when
