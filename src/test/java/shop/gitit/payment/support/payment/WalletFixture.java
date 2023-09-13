@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.payment;
+package shop.gitit.payment.support.payment;
 
 import shop.gitit.payment.domain.Wallet;
 import shop.gitit.payment.service.dto.GetPointDto;

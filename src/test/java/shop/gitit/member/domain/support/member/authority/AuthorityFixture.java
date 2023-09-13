@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.member.authority;
+package shop.gitit.member.domain.support.member.authority;
 
 import java.util.List;
 import shop.gitit.member.domain.authority.Authority;

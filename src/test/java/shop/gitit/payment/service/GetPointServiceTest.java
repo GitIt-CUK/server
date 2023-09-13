@@ -19,7 +19,7 @@ import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.payment.service.dto.GetPointDto;
 import shop.gitit.payment.service.usecase.GetPointUsecase;
-import shop.gitit.support.fixture.payment.WalletFixture;
+import shop.gitit.payment.support.payment.WalletFixture;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {GetPointService.class})

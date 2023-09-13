@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixture;
 import shop.gitit.member.exception.NicknameLengthViolationException;
-import shop.gitit.support.fixture.member.memberprofile.MemberProfileFixture;
 
 class MemberProfileTest {
 

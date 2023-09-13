@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.githubinfo.commitcount;
+package shop.gitit.github.support.githubinfo.commitcount;
 
 import shop.gitit.github.domain.commitcount.CommitCount;
 

@@ -6,8 +6,8 @@ import static shop.gitit.member.domain.status.MemberStatus.INACTIVE;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shop.gitit.member.domain.support.member.MemberFixture;
 import shop.gitit.member.exception.AlreadyWithdrawnException;
-import shop.gitit.support.fixture.member.MemberFixture;
 
 class MemberTest {
 

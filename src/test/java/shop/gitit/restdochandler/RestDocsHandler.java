@@ -1,4 +1,4 @@
-package shop.gitit.support.restdochandler;
+package shop.gitit.restdochandler;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
