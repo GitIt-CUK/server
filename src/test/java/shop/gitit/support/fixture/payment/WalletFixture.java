@@ -5,7 +5,7 @@ import shop.gitit.payment.service.dto.GetPointDto;
 
 public class WalletFixture {
 
-    public static GetPointDto.Request defaultRequest() {
+    public static GetPointDto.Request getPointDtoRequest() {
         long memberId = 1L;
         return GetPointDto.Request.builder().memberId(memberId).build();
     }
