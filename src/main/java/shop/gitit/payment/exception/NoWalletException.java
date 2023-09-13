@@ -2,8 +2,7 @@ package shop.gitit.payment.exception;
 
 public class NoWalletException extends RuntimeException {
 
-    public NoWalletException() {
-    }
+    public NoWalletException() {}
 
     public NoWalletException(String message) {
         super(message);
