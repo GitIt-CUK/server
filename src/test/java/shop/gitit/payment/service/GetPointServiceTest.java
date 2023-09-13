@@ -1,5 +1,11 @@
 package shop.gitit.payment.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,13 +20,6 @@ import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.payment.service.dto.GetPointDto;
 import shop.gitit.payment.service.usecase.GetPointUsecase;
 import shop.gitit.payment.support.payment.WalletFixture;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {GetPointService.class})
