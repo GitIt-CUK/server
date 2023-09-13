@@ -1,12 +1,13 @@
 package shop.gitit.payment.domain;
 
-import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.payment.domain.memberId.MemberId;
 import shop.gitit.payment.domain.money.Money;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "WALLET")
@@ -30,5 +31,13 @@ public class Wallet extends BaseEntity {
     public Wallet(MemberId owner) {
         this.owner = owner;
         this.money = new Money();
+    }
+
+    public int getPoint() {
+        return this.money.getPoint();
+    }
+
+    public long getOwnerId() {
+        return this.owner.getId();
     }
 }
