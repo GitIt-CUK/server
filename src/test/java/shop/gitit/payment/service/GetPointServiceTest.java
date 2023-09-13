@@ -2,7 +2,7 @@ package shop.gitit.payment.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import shop.gitit.payment.domain.Wallet;
-import shop.gitit.payment.domain.memberId.MemberId;
 import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.payment.service.dto.GetPointDto;
@@ -41,12 +40,13 @@ class GetPointServiceTest {
             @Test
             void success() {
                 // given
-                GetPointDto.Request request = GetPointDto.Request.builder().memberId(1L).build();
-                MemberId ownerId = new MemberId(request.getMemberId());
-                Wallet wallet = new Wallet(ownerId);
+                long memberId = 1L;
+                GetPointDto.Request request =
+                        GetPointDto.Request.builder().memberId(memberId).build();
+                Wallet wallet = new Wallet(memberId);
 
                 // when
-                when(paymentRepository.findByOwnerId(any(MemberId.class)))
+                when(paymentRepository.findWalletByOwnerId(anyLong()))
                         .thenReturn(Optional.ofNullable(wallet));
                 GetPointDto.Response result = getPointUsecase.getPoint(request);
 
@@ -66,13 +66,13 @@ class GetPointServiceTest {
             @Test
             void throwNoWalletException() {
                 // given
-                GetPointDto.Request request = GetPointDto.Request.builder().memberId(1L).build();
-                MemberId ownerId = new MemberId(request.getMemberId());
-                Wallet wallet = new Wallet(ownerId);
+                long memberId = 1L;
+                GetPointDto.Request request =
+                        GetPointDto.Request.builder().memberId(memberId).build();
+                Wallet wallet = new Wallet(memberId);
 
                 // when
-                when(paymentRepository.findByOwnerId(any(MemberId.class)))
-                        .thenReturn(Optional.empty());
+                when(paymentRepository.findWalletByOwnerId(anyLong())).thenReturn(Optional.empty());
 
                 // then
                 assertThatThrownBy(() -> getPointUsecase.getPoint(request))
