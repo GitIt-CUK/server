@@ -5,12 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.github.domain.grasscolor.GrassColor;
-import shop.gitit.github.domain.memberid.MemberId;
 import shop.gitit.github.domain.tier.Tier;
 
 class GitHubInfoTest {
 
-    private final GitHubInfo gitHubInfo = new GitHubInfo(new MemberId(1L));
+    private final GitHubInfo gitHubInfo = new GitHubInfo(1L);
 
     @DisplayName("최초 잔디 색은 GREEN이다.")
     @Test
