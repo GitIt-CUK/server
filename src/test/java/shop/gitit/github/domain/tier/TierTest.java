@@ -5,7 +5,7 @@ import static shop.gitit.github.domain.tier.Tier.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import shop.gitit.support.fixture.githubinfo.tier.TierFixture;
+import shop.gitit.github.support.githubinfo.tier.TierFixture;
 
 class TierTest {
 

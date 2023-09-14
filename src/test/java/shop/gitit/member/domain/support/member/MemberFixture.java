@@ -1,8 +1,8 @@
-package shop.gitit.support.fixture.member;
+package shop.gitit.member.domain.support.member;
 
 import shop.gitit.member.domain.Member;
-import shop.gitit.support.fixture.member.authority.AuthorityFixture;
-import shop.gitit.support.fixture.member.memberprofile.MemberProfileFixture;
+import shop.gitit.member.domain.support.member.authority.AuthorityFixture;
+import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixture;
 
 public class MemberFixture {
 

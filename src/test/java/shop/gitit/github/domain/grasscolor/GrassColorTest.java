@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import shop.gitit.support.fixture.githubinfo.grasscolor.GrassColorFixture;
+import shop.gitit.github.support.githubinfo.grasscolor.GrassColorFixture;
 
 class GrassColorTest {
 

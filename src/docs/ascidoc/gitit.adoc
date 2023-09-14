@@ -1,0 +1,18 @@
+= GitIt API 문서(ver 1.0.0)
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== Payment
+
+=== 포인트 조회
+
+==== Request
+
+include::{snippets}/pay/point/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/pay/point/http-response.adoc[]

@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.member.memberprofile;
+package shop.gitit.member.domain.support.member.memberprofile;
 
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 

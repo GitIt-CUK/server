@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.githubinfo.grasscolor;
+package shop.gitit.github.support.githubinfo.grasscolor;
 
 public class GrassColorFixture {
 

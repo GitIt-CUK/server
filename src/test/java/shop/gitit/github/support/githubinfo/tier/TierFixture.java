@@ -1,4 +1,4 @@
-package shop.gitit.support.fixture.githubinfo.tier;
+package shop.gitit.github.support.githubinfo.tier;
 
 public class TierFixture {
 
