@@ -37,4 +37,8 @@ public class Wallet extends BaseEntity {
     public void pay(int cost) {
         this.money.minus(cost);
     }
+
+    public void accumulatePoint(int point) {
+        this.money.plus(point);
+    }
 }
