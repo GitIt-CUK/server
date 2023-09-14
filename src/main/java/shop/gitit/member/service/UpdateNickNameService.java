@@ -1,8 +1,6 @@
 package shop.gitit.member.service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shop.gitit.member.domain.Member;
