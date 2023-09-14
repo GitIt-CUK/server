@@ -26,7 +26,7 @@ public class DrawColorChipService implements DrawColorChipUsecase {
     public DrawColorChipResDto drawColorChip(DrawColorChipReqDto drawColorChipReqDto) {
         Shop shop = new Shop();
         // 아이템 타입의 가격만큼 포인트 조회 -> 상점 도메인
-        int colorChipCost = shop.getPriceByCode(drawColorChipReqDto.getColorCode());
+        int colorChipCost = shop.getPriceByCode(drawColorChipReqDto.getItemType());
         // 포인트 조회 -> 결제 도메인
         Wallet wallet =
                 paymentRepository
