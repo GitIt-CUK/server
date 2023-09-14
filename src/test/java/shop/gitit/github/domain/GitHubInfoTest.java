@@ -27,13 +27,13 @@ class GitHubInfoTest {
     @Test
     void changeGrassColor() {
         // given
-        String code = GrassColor.DIAMOND.getCode();
+        String code = GrassColor.RARE.getCode();
 
         // when
         gitHubInfo.changeGrassColor(code);
 
         // then
-        assertThat(gitHubInfo.getGrassColor()).isEqualTo(GrassColor.DIAMOND);
+        assertThat(gitHubInfo.getGrassColor()).isEqualTo(GrassColor.RARE);
     }
 
     @DisplayName("누적 커밋 수를 갱신하면 자동으로 승급한다.")
