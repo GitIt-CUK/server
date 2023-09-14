@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import shop.gitit.shop.controller.request.DrawColorChipReq;
 import shop.gitit.shop.service.dto.request.DrawColorChipReqDto;
 import shop.gitit.shop.service.dto.response.DrawColorChipResDto;
 import shop.gitit.shop.service.usecase.DrawColorChipUsecase;
@@ -35,6 +36,8 @@ class ShopControllerTest {
     void 컬러칩_뽑기() throws Exception {
         // given
         String DRAW_COLOR_CHIP_URL = "/v1/shop/item/color-chip/{member-id}";
+        DrawColorChipReq requestBody =
+                DrawColorChipReq.builder().itemType("COLOR-CHIP").colorCode("RARE").build();
         DrawColorChipResDto response = DrawColorChipResDto.builder().remainingPoint(100).build();
 
         // when
@@ -45,6 +48,7 @@ class ShopControllerTest {
         mockMvc.perform(
                         post(DRAW_COLOR_CHIP_URL, 1L)
                                 .with(csrf())
+                                .content(objectMapper.writeValueAsString(requestBody))
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
