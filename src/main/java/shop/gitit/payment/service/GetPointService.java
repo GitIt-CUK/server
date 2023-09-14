@@ -2,6 +2,7 @@ package shop.gitit.payment.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shop.gitit.payment.domain.Wallet;
 import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
@@ -11,6 +12,7 @@ import shop.gitit.payment.service.usecase.GetPointUsecase;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class GetPointService implements GetPointUsecase {
 
     private final PaymentRepository paymentRepository;
