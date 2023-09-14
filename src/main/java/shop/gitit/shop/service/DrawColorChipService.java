@@ -11,7 +11,6 @@ import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.shop.domain.Shop;
 import shop.gitit.shop.service.dto.request.DrawColorChipReqDto;
-import shop.gitit.shop.service.dto.response.DrawColorChipResDto;
 import shop.gitit.shop.service.usecase.DrawColorChipUsecase;
 
 @Service
@@ -23,7 +22,7 @@ public class DrawColorChipService implements DrawColorChipUsecase {
     private final GitHubInfoRepository gitHubInfoRepository;
 
     @Override
-    public DrawColorChipResDto drawColorChip(DrawColorChipReqDto drawColorChipReqDto) {
+    public void drawColorChip(DrawColorChipReqDto drawColorChipReqDto) {
         Shop shop = new Shop();
         // 아이템 타입의 가격만큼 포인트 조회 -> 상점 도메인
         int colorChipCost = shop.getPriceByCode(drawColorChipReqDto.getItemType());
@@ -40,7 +39,5 @@ public class DrawColorChipService implements DrawColorChipUsecase {
                         .findGitHubInfoByMemberId(drawColorChipReqDto.getMemberId())
                         .orElseThrow(() -> new NoGitHubInfoException("깃허브 정보가 없어요."));
         gitHubInfo.changeGrassColor(drawColorChipReqDto.getColorCode());
-        // 잔여 포인트 반환 -> 결제 도메인
-        return DrawColorChipResDto.builder().remainingPoint(wallet.getPoint()).build();
     }
 }

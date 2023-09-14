@@ -1,11 +1,10 @@
 package shop.gitit.shop.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shop.gitit.restdochandler.RestDocsHandler.createDocument;
 
@@ -41,8 +40,7 @@ class ShopControllerTest {
         DrawColorChipResDto response = DrawColorChipResDto.builder().remainingPoint(100).build();
 
         // when
-        when(drawColorChipUsecase.drawColorChip(any(DrawColorChipReqDto.class)))
-                .thenReturn(response);
+        doNothing().when(drawColorChipUsecase).drawColorChip(any(DrawColorChipReqDto.class));
 
         // then
         mockMvc.perform(
@@ -50,7 +48,7 @@ class ShopControllerTest {
                                 .with(csrf())
                                 .content(objectMapper.writeValueAsString(requestBody))
                                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
+                .andExpectAll(status().isOk())
                 .andDo(print())
                 .andDo(createDocument("shop/draw_color_chip"));
     }

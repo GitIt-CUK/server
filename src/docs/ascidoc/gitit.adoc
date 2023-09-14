@@ -16,3 +16,15 @@ include::{snippets}/pay/point/http-request.adoc[]
 ==== Response
 
 include::{snippets}/pay/point/http-response.adoc[]
+
+== Shop
+
+=== 컬러칩 뽑기
+
+==== Request
+
+include::{snippets}/shop/draw_color_chip/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/shop/draw_color_chip/http-response.adoc[]
