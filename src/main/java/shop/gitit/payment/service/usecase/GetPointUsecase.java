@@ -1,8 +1,9 @@
 package shop.gitit.payment.service.usecase;
 
-import shop.gitit.payment.service.dto.GetPointDto;
+import shop.gitit.payment.service.dto.request.GetPointReqDto;
+import shop.gitit.payment.service.dto.response.GetPointResDto;
 
 public interface GetPointUsecase {
 
-    GetPointDto.Response getPoint(GetPointDto.Request getPointDto);
+    GetPointResDto getPoint(GetPointReqDto getPointReqDto);
 }

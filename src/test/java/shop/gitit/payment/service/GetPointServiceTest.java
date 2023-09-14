@@ -17,7 +17,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import shop.gitit.payment.domain.Wallet;
 import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
-import shop.gitit.payment.service.dto.GetPointDto;
+import shop.gitit.payment.service.dto.request.GetPointReqDto;
+import shop.gitit.payment.service.dto.response.GetPointResDto;
 import shop.gitit.payment.service.usecase.GetPointUsecase;
 import shop.gitit.payment.support.payment.WalletFixture;
 
@@ -41,18 +42,17 @@ class GetPointServiceTest {
             @Test
             void success() {
                 // given
-                GetPointDto.Request request = WalletFixture.defaultGetPointDtoRequest();
+                GetPointReqDto request = WalletFixture.defaultGetPointDtoRequest();
                 Wallet wallet = WalletFixture.defaultWallet();
 
                 // when
                 when(paymentRepository.findWalletByOwnerId(anyLong()))
                         .thenReturn(Optional.ofNullable(wallet));
-                GetPointDto.Response result = getPointUsecase.getPoint(request);
+                GetPointResDto result = getPointUsecase.getPoint(request);
 
                 // then
                 assertThat(result)
-                        .extracting(
-                                GetPointDto.Response::getMemberId, GetPointDto.Response::getPoint)
+                        .extracting(GetPointResDto::getMemberId, GetPointResDto::getPoint)
                         .contains(result.getMemberId(), result.getPoint());
             }
         }
@@ -65,7 +65,7 @@ class GetPointServiceTest {
             @Test
             void throwNoWalletException() {
                 // given
-                GetPointDto.Request request = WalletFixture.defaultGetPointDtoRequest();
+                GetPointReqDto request = WalletFixture.defaultGetPointDtoRequest();
                 Wallet wallet = WalletFixture.defaultWallet();
 
                 // when

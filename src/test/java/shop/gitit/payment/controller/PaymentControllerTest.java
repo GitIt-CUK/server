@@ -18,7 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import shop.gitit.payment.service.dto.GetPointDto;
+import shop.gitit.payment.service.dto.request.GetPointReqDto;
+import shop.gitit.payment.service.dto.response.GetPointResDto;
 import shop.gitit.payment.service.usecase.GetPointUsecase;
 
 @AutoConfigureRestDocs
@@ -34,11 +35,10 @@ class PaymentControllerTest {
     void 포인트_조회() throws Exception {
         // given
         String GET_POINT_URL = "/v1/pay/point/{member-id}";
-        GetPointDto.Response response =
-                GetPointDto.Response.builder().memberId(1L).point(100).build();
+        GetPointResDto response = GetPointResDto.builder().memberId(1L).point(100).build();
 
         // when
-        when(getPointUsecase.getPoint(any(GetPointDto.Request.class))).thenReturn(response);
+        when(getPointUsecase.getPoint(any(GetPointReqDto.class))).thenReturn(response);
 
         // then
         mockMvc.perform(get(GET_POINT_URL, 1L).with(csrf()).contentType(MediaType.APPLICATION_JSON))
