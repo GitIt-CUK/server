@@ -1,6 +1,6 @@
 package shop.gitit.member.controller;
 
-import static shop.gitit.member.controller.mapper.MemberMapper.toReqDto;
+import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,7 @@ public class MemberController {
     public ResponseEntity<UpdateMemberNickNameResDto> updateMemberNickName(
             @PathVariable(name = "member-id") long memberId,
             @RequestBody UpdateMemberNickNameReq req) {
-        return ResponseEntity.ok(updateNickNameUsecase.updateNickName(toReqDto(memberId, req)));
+        return ResponseEntity.ok(
+                updateNickNameUsecase.updateNickName(toUpdateMemberNickNameReqDto(memberId, req)));
     }
 }

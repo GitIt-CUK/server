@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class UpdateMemberNickNameResDto {
-    private long memberId;
+
     private String nickName;
 }

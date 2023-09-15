@@ -2,7 +2,10 @@ package shop.gitit.member.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,8 +23,8 @@ import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {UpdateNickNameService.class})
 class UpdateNickNameServiceTest {
-    @Autowired private UpdateNickNameUsecase updateNickNameUsecase;
 
+    @Autowired private UpdateNickNameUsecase updateNickNameUsecase;
     @MockBean private MemberRepository memberRepository;
 
     @DisplayName("updateNickName 메서드는 기릿으로 닉네임을 변경한다.")
@@ -33,19 +36,10 @@ class UpdateNickNameServiceTest {
         Member member = MemberFixture.getMember();
 
         // when
-        member.getProfile().updateNickname(request.getNickName());
-        // TODO 멤버의 pk 값은 생성자를 통해 설정되지 않으므로 Res 값을 하드 코딩하였음 해결 방안 고민 필요
-        UpdateMemberNickNameResDto result =
-                UpdateMemberNickNameResDto.builder()
-                        .memberId(1L)
-                        .nickName(member.getProfile().getNickname())
-                        .build();
+        when(memberRepository.findById(anyLong())).thenReturn(Optional.ofNullable(member));
+        UpdateMemberNickNameResDto result = updateNickNameUsecase.updateNickName(request);
 
         // then
-        assertThat(result)
-                .extracting(
-                        UpdateMemberNickNameResDto::getMemberId,
-                        UpdateMemberNickNameResDto::getNickName)
-                .contains(result.getMemberId(), "기릿");
+        assertThat(result).extracting(UpdateMemberNickNameResDto::getNickName).as("기릿");
     }
 }

@@ -12,12 +12,12 @@ import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UpdateNickNameService implements UpdateNickNameUsecase {
 
     private final MemberRepository memberRepository;
 
     @Override
-    @Transactional
     public UpdateMemberNickNameResDto updateNickName(UpdateMemberNickNameReqDto dto) {
         Member member =
                 memberRepository
@@ -25,7 +25,6 @@ public class UpdateNickNameService implements UpdateNickNameUsecase {
                         .orElseThrow(() -> new NoMemberException("해당 회원이 존재하지 않습니다."));
         member.getProfile().updateNickname(dto.getNickName());
         return UpdateMemberNickNameResDto.builder()
-                .memberId(member.getId())
                 .nickName(member.getProfile().getNickname())
                 .build();
     }

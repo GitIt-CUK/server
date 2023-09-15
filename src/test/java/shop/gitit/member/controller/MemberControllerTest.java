@@ -40,7 +40,7 @@ class MemberControllerTest {
         // given
         String UPDATE_MEMBER_NICKNAME_URL = "/v1/members/profile/{member-id}";
         UpdateMemberNickNameResDto response =
-                UpdateMemberNickNameResDto.builder().memberId(1L).nickName("기릿").build();
+                UpdateMemberNickNameResDto.builder().nickName("기릿").build();
         UpdateMemberNickNameReq updateMemberNickNameReq =
                 UpdateMemberNickNameReq.builder().nickName("기릿").build();
         String content = objectMapper.writeValueAsString(updateMemberNickNameReq);

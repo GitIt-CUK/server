@@ -8,7 +8,8 @@ import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class MemberMapper {
 
-    public static UpdateMemberNickNameReqDto toReqDto(long memberId, UpdateMemberNickNameReq req) {
+    public static UpdateMemberNickNameReqDto toUpdateMemberNickNameReqDto(
+            long memberId, UpdateMemberNickNameReq req) {
         return UpdateMemberNickNameReqDto.builder()
                 .memberId(memberId)
                 .nickName(req.getNickName())

@@ -1,17 +1,12 @@
 package shop.gitit.member.controller.request;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class UpdateMemberNickNameReq {
-    private String nickName;
 
-    @Builder
-    public UpdateMemberNickNameReq(String nickName) {
-        this.nickName = nickName;
-    }
+    private String nickName;
 }
