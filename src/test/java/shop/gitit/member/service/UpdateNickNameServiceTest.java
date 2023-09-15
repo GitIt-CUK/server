@@ -27,7 +27,7 @@ class UpdateNickNameServiceTest {
     @Autowired private UpdateNickNameUsecase updateNickNameUsecase;
     @MockBean private MemberRepository memberRepository;
 
-    @DisplayName("updateNickName 메서드는 기릿으로 닉네임을 변경한다.")
+    @DisplayName("updateNickName 메서드는 닉네임을 변경한다.")
     @Test
     void updateNickName() {
         // given
