@@ -16,3 +16,15 @@ include::{snippets}/pay/point/http-request.adoc[]
 ==== Response
 
 include::{snippets}/pay/point/http-response.adoc[]
+
+== Member
+
+=== 닉네임 변경
+
+==== Request
+
+include::{snippets}/members/profile/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/members/profile/http-response.adoc[]
