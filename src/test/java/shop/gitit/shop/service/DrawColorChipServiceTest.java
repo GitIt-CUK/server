@@ -2,6 +2,7 @@ package shop.gitit.shop.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -9,28 +10,27 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import shop.gitit.github.domain.GitHubInfo;
 import shop.gitit.github.domain.grasscolor.GrassColor;
 import shop.gitit.github.repository.GitHubInfoRepository;
 import shop.gitit.payment.domain.Wallet;
 import shop.gitit.payment.exception.PointViolationException;
-import shop.gitit.payment.repository.PaymentRepository;
+import shop.gitit.shop.domain.service.PaymentCompletionChecker;
 import shop.gitit.shop.service.dto.request.DrawColorChipReqDto;
 import shop.gitit.shop.service.usecase.DrawColorChipUsecase;
 import shop.gitit.shop.support.ServiceDtoFixture;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DrawColorChipService.class})
+@SpringBootTest
 class DrawColorChipServiceTest {
 
+    @Autowired private ApplicationEventPublisher eventPublisher;
     @Autowired private DrawColorChipUsecase drawColorChipUsecase;
-    @MockBean private PaymentRepository paymentRepository;
     @MockBean private GitHubInfoRepository gitHubInfoRepository;
+    @MockBean private PaymentCompletionChecker paymentCompletionChecker;
 
     @DisplayName("drawColorChip 메서드는")
     @Nested
@@ -53,8 +53,8 @@ class DrawColorChipServiceTest {
                     Wallet wallet = new Wallet(memberId);
 
                     // when
-                    when(paymentRepository.findWalletByOwnerId(anyLong()))
-                            .thenReturn(Optional.ofNullable(wallet));
+                    when(paymentCompletionChecker.completePayment(anyLong(), anyInt()))
+                            .thenThrow(PointViolationException.class);
 
                     // then
                     assertThatThrownBy(() -> drawColorChipUsecase.drawColorChip(req))
@@ -66,7 +66,7 @@ class DrawColorChipServiceTest {
             @Nested
             class userAccountIsNotOverdrawn {
 
-                @DisplayName("결제에 성공하고 잔디 색이 변경된다.")
+                @DisplayName("결제에 성공하고 컬러칩 변경 이벤트를 호출하고 컬러칩이 변경된다.")
                 @Test
                 void payAndChangeColorChip() {
                     // given
@@ -77,8 +77,8 @@ class DrawColorChipServiceTest {
                     GitHubInfo gitHubInfo = new GitHubInfo(memberId);
 
                     // when
-                    when(paymentRepository.findWalletByOwnerId(anyLong()))
-                            .thenReturn(Optional.ofNullable(wallet));
+                    when(paymentCompletionChecker.completePayment(anyLong(), anyInt()))
+                            .thenReturn(true);
                     when(gitHubInfoRepository.findGitHubInfoByMemberId(anyLong()))
                             .thenReturn(Optional.ofNullable(gitHubInfo));
                     drawColorChipUsecase.drawColorChip(req);

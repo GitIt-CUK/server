@@ -1,10 +1,11 @@
 package shop.gitit.payment.service;
 
+import static shop.gitit.payment.service.helper.PaymentServiceHelper.findWallet;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.gitit.payment.domain.Wallet;
-import shop.gitit.payment.exception.NoWalletException;
 import shop.gitit.payment.repository.PaymentRepository;
 import shop.gitit.payment.service.dto.request.GetPointReqDto;
 import shop.gitit.payment.service.dto.response.GetPointResDto;
@@ -18,10 +19,7 @@ public class GetPointService implements GetPointUsecase {
     private final PaymentRepository paymentRepository;
 
     public GetPointResDto getPoint(GetPointReqDto getPointDto) {
-        Wallet wallet =
-                paymentRepository
-                        .findWalletByOwnerId(getPointDto.getMemberId())
-                        .orElseThrow(() -> new NoWalletException("해당 회원의 포인트가 존재하지 않습니다."));
+        Wallet wallet = findWallet(paymentRepository, getPointDto.getMemberId());
         return GetPointResDto.builder()
                 .memberId(wallet.getOwnerId())
                 .point(wallet.getPoint())
