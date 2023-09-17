@@ -15,30 +15,30 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import shop.gitit.member.domain.Member;
 import shop.gitit.member.domain.support.member.MemberFixture;
 import shop.gitit.member.repository.MemberRepository;
-import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
-import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
+import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
+import shop.gitit.member.service.usecase.GetProfileUsecase;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {UpdateNickNameService.class})
-class UpdateNickNameServiceTest {
+@ContextConfiguration(classes = {GetProfileService.class})
+class GetProfileServiceTest {
 
-    @Autowired private UpdateNickNameUsecase updateNickNameUsecase;
+    @Autowired private GetProfileUsecase getProfileUsecase;
     @MockBean private MemberRepository memberRepository;
 
-    @DisplayName("updateNickName 메서드는 닉네임을 변경한다.")
+    @DisplayName("getProfile 메서드는 프로필을 조회한다.")
     @Test
-    void updateNickName() {
+    void getProfile() {
         // given
-        UpdateMemberNickNameReqDto request =
-                UpdateMemberNickNameReqDto.builder().memberId(1L).nickName("기릿").build();
         Member member = MemberFixture.getMember();
 
         // when
         when(memberRepository.findById(anyLong())).thenReturn(Optional.ofNullable(member));
-        UpdateMemberNickNameResDto result = updateNickNameUsecase.updateNickName(request);
+        GetMemberProfileResDto result = getProfileUsecase.getMemberProfile(1L);
 
         // then
-        assertThat(result).extracting(UpdateMemberNickNameResDto::getNickName).as("기릿");
+        assertThat(result)
+                .extracting(
+                        GetMemberProfileResDto::getGithubId, GetMemberProfileResDto::getNickname)
+                .contains("닉네임", "깃허브아이디");
     }
 }
