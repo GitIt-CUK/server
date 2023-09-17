@@ -5,12 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shop.gitit.github.domain.grasscolor.GrassColor;
-import shop.gitit.github.domain.memberid.MemberId;
 import shop.gitit.github.domain.tier.Tier;
 
 class GitHubInfoTest {
 
-    private final GitHubInfo gitHubInfo = new GitHubInfo(new MemberId(1L));
+    private final GitHubInfo gitHubInfo = new GitHubInfo(1L);
 
     @DisplayName("최초 잔디 색은 GREEN이다.")
     @Test
@@ -28,13 +27,13 @@ class GitHubInfoTest {
     @Test
     void changeGrassColor() {
         // given
-        String code = GrassColor.DIAMOND.getCode();
+        String code = GrassColor.RARE.getCode();
 
         // when
         gitHubInfo.changeGrassColor(code);
 
         // then
-        assertThat(gitHubInfo.getGrassColor()).isEqualTo(GrassColor.DIAMOND);
+        assertThat(gitHubInfo.getGrassColor()).isEqualTo(GrassColor.RARE);
     }
 
     @DisplayName("누적 커밋 수를 갱신하면 자동으로 승급한다.")

@@ -1,10 +1,13 @@
 package shop.gitit.shop.domain;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import shop.gitit.shop.domain.itemtype.ItemType;
 
-public class Shop {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class Shop {
 
-    public int getPriceByCode(String code) {
+    public static int getItemPriceByType(String code) {
         ItemType item = ItemType.findByCode(code);
         return item.getCost();
     }

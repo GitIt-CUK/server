@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.github.domain.commitcount.CommitCount;
 import shop.gitit.github.domain.grasscolor.GrassColor;
-import shop.gitit.github.domain.memberid.MemberId;
 import shop.gitit.github.domain.tier.Tier;
 
 @Entity
@@ -24,11 +23,8 @@ public class GitHubInfo extends BaseEntity {
     @Column(name = "github_info_id")
     private Long id;
 
-    @Embedded
-    @AttributeOverride(
-            name = "id",
-            column = @Column(name = "github_info_member_id", nullable = false))
-    private MemberId memberId;
+    @Column(name = "github_info_member_id", nullable = false)
+    private Long memberId;
 
     @Embedded
     @AttributeOverride(
@@ -42,7 +38,7 @@ public class GitHubInfo extends BaseEntity {
     @Column(name = "github_info_grass_color")
     private GrassColor grassColor;
 
-    public GitHubInfo(MemberId memberId) {
+    public GitHubInfo(Long memberId) {
         Assert.notNull(memberId, IS_NULL.getMessage());
         this.memberId = memberId;
         this.commitCount = new CommitCount();
