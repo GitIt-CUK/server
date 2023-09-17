@@ -5,25 +5,11 @@ import lombok.Getter;
 
 @Getter
 public enum GrassColor {
-    RED("RED"),
-    WINE("WINE"),
-    PURPLE("PURPLE"),
-    VIOLET("VIOLET"),
-    INDIGO("INDIGO"),
-    BLUE("BLUE"),
-    CYAN("CYAN"),
-    TEAL("TEAL"),
     GREEN("GREEN"),
-    LIME("LIME"),
-    YELLOW("YELLOW"),
-    ORANGE("ORANGE"),
-    BRONZE("BRONZE"),
-    SILVER("SILVER"),
-    GOLD("GOLD"),
-    PLATINUM("PLATINUM"),
-    DIAMOND("DIAMOND"),
-    RUBY("RUBY"),
-    MASTER("MASTER"),
+    NORMAL("NORMAL"),
+    SPECIAL("SPECIAL"),
+    RARE("RARE"),
+    ELITE("ELITE"),
     ;
 
     private String code;

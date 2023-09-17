@@ -28,3 +28,15 @@ include::{snippets}/members/profile/http-request.adoc[]
 ==== Response
 
 include::{snippets}/members/profile/http-response.adoc[]
+
+== Shop
+
+=== 컬러칩 뽑기
+
+==== Request
+
+include::{snippets}/shop/draw_color_chip/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/shop/draw_color_chip/http-response.adoc[]
