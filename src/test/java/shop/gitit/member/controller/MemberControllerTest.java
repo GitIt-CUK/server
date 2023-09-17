@@ -1,9 +1,10 @@
 package shop.gitit.member.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,8 +21,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
+import shop.gitit.member.domain.memberprofile.MemberProfile;
+import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixture;
 import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
+import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
+import shop.gitit.member.service.usecase.GetProfileUsecase;
 import shop.gitit.member.service.usecase.JoinUsecase;
 import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
 
@@ -33,6 +38,7 @@ class MemberControllerTest {
     @Autowired private ObjectMapper objectMapper;
     @MockBean private UpdateNickNameUsecase updateNickNameUsecase;
     @MockBean private JoinUsecase joinUsecase;
+    @MockBean private GetProfileUsecase getProfileUsecase;
 
     @Test
     @WithMockUser
@@ -59,5 +65,31 @@ class MemberControllerTest {
                 .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andDo(createDocument("members/profile"));
+    }
+
+    @Test
+    @WithMockUser
+    void 사용자_프로필_조회() throws Exception {
+        // given
+        String GET_MEMBER_PROFILE_URL = "/v1/members/profile/{member-id}";
+        MemberProfile memberProfile = MemberProfileFixture.getMyProfile();
+        GetMemberProfileResDto response =
+                GetMemberProfileResDto.builder()
+                        .githubId(memberProfile.getGithubId())
+                        .nickname(memberProfile.getNickname())
+                        .build();
+
+        // when
+        when(getProfileUsecase.getMemberProfile(anyLong())).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                        get(GET_MEMBER_PROFILE_URL, 1L)
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andDo(createDocument("get/members/profile"));
     }
 }

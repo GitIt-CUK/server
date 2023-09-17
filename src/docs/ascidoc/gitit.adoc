@@ -29,6 +29,16 @@ include::{snippets}/members/profile/http-request.adoc[]
 
 include::{snippets}/members/profile/http-response.adoc[]
 
+=== 프로필 조회
+
+==== Request
+
+include::{snippets}/get/members/profile/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/get/members/profile/http-response.adoc[]
+
 == Shop
 
 === 컬러칩 뽑기
