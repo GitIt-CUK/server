@@ -39,6 +39,6 @@ class GetProfileServiceTest {
         assertThat(result)
                 .extracting(
                         GetMemberProfileResDto::getGithubId, GetMemberProfileResDto::getNickname)
-                .contains("닉네임", "깃허브아이디");
+                .contains(member.getProfile().getNickname(), member.getProfile().getGithubId());
     }
 }
