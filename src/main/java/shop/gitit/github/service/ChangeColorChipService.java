@@ -2,7 +2,6 @@ package shop.gitit.github.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import shop.gitit.github.domain.GitHubInfo;
 import shop.gitit.github.exception.NoGitHubInfoException;
@@ -12,7 +11,7 @@ import shop.gitit.github.service.usecase.ChangeColorChipUsecase;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(propagation = Propagation.REQUIRES_NEW)
+@Transactional
 public class ChangeColorChipService implements ChangeColorChipUsecase {
 
     private final GitHubInfoRepository gitHubInfoRepository;
