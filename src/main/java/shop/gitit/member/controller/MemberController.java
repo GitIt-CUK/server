@@ -3,6 +3,7 @@ package shop.gitit.member.controller;
 import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
@@ -11,6 +12,7 @@ import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
 import shop.gitit.member.service.usecase.GetProfileUsecase;
 import shop.gitit.member.service.usecase.JoinUsecase;
 import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
+import shop.gitit.member.service.usecase.WithdrawnUsecase;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class MemberController {
     private final JoinUsecase joinUsecase;
     private final UpdateNickNameUsecase updateNickNameUsecase;
     private final GetProfileUsecase getProfileUsecase;
+    private final WithdrawnUsecase withdrawnUsecase;
 
     @PatchMapping("/profile/{member-id}")
     public ResponseEntity<UpdateMemberNickNameResDto> updateMemberNickName(
@@ -33,5 +36,11 @@ public class MemberController {
     public ResponseEntity<GetMemberProfileResDto> getMemberProfile(
             @PathVariable(name = "member-id") long memberId) {
         return ResponseEntity.ok(getProfileUsecase.getMemberProfile(memberId));
+    }
+
+    @PatchMapping("/withdrawn/{member-id}")
+    public ResponseEntity withdrawMember(@PathVariable(name = "member-id") long memberId) {
+        withdrawnUsecase.withdrawMember(memberId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
