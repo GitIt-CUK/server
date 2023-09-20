@@ -39,6 +39,17 @@ include::{snippets}/get/members/profile/http-request.adoc[]
 
 include::{snippets}/get/members/profile/http-response.adoc[]
 
+=== 회원 탈퇴
+
+==== Request
+
+include::{snippets}/withdrawn/members/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/withdrawn/members/http-response.adoc[]
+
+
 == Shop
 
 === 컬러칩 뽑기

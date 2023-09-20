@@ -29,6 +29,7 @@ import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
 import shop.gitit.member.service.usecase.GetProfileUsecase;
 import shop.gitit.member.service.usecase.JoinUsecase;
 import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
+import shop.gitit.member.service.usecase.WithdrawnUsecase;
 
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = MemberController.class)
@@ -39,6 +40,7 @@ class MemberControllerTest {
     @MockBean private UpdateNickNameUsecase updateNickNameUsecase;
     @MockBean private JoinUsecase joinUsecase;
     @MockBean private GetProfileUsecase getProfileUsecase;
+    @MockBean private WithdrawnUsecase withdrawnUsecase;
 
     @Test
     @WithMockUser
@@ -91,5 +93,24 @@ class MemberControllerTest {
                 .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andDo(createDocument("get/members/profile"));
+    }
+
+    @Test
+    @WithMockUser
+    void 사용자_탈퇴() throws Exception {
+        // given
+        String PATCH_MEMBER_WITHDRAWN_URL = "/v1/members/withdrawn/{member-id}";
+        MemberProfile memberProfile = MemberProfileFixture.getMyProfile();
+
+        // when
+
+        // then
+        mockMvc.perform(
+                        patch(PATCH_MEMBER_WITHDRAWN_URL, 1L)
+                                .with(csrf())
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpectAll(status().isOk())
+                .andDo(print())
+                .andDo(createDocument("withdrawn/members"));
     }
 }
