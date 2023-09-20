@@ -12,7 +12,7 @@ public final class MemberMapper {
             long memberId, UpdateMemberNickNameReq req) {
         return UpdateMemberNickNameReqDto.builder()
                 .memberId(memberId)
-                .nickName(req.getNickName())
+                .nickname(req.getNickname())
                 .build();
     }
 }

@@ -7,5 +7,5 @@ import lombok.Getter;
 @Builder
 public class UpdateMemberNickNameResDto {
 
-    private String nickName;
+    private String nickname;
 }
