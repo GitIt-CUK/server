@@ -8,7 +8,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.kohsuke.github.GHCommit;
-import org.kohsuke.github.GitHub;
 import org.springframework.stereotype.Service;
 import shop.gitit.github.client.GitHubClient;
 import shop.gitit.github.service.dto.response.GetCommitsDescriptionResDto;
@@ -29,7 +28,6 @@ public class CommitsDescriptionService implements CommitsDescriptionUsecase {
     @Override
     public GetCommitsDescriptionResDto getCommitsDescription(Long memberId) throws IOException {
 
-        GitHub gitHub = githubClient.getGitHubClient();
         Member member =
                 memberRepository
                         .findById(memberId)

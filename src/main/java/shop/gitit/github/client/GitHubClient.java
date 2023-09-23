@@ -18,7 +18,7 @@ public class GitHubClient {
     @Value("${github.client.oauth.token}")
     private String githubOAuthToken;
 
-    public GitHub getGitHubClient() {
+    private GitHub getGitHubClient() {
         try {
             GitHub gitHub = new GitHubBuilder().withOAuthToken(githubOAuthToken).build();
             gitHub.checkApiUrlValidity();
