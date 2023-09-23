@@ -7,6 +7,8 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
+    private static final int zero = 0;
+
     /**
      * Date를 당일 0시 0분 0초 LocalDateTime으로 변환
      *
@@ -16,15 +18,14 @@ public class DateUtil {
     public static LocalDateTime dateToLocalDate(Date date) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-        LocalDateTime localDateTime =
-                LocalDateTime.of(
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH) + 1,
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        0,
-                        0,
-                        0);
-        return localDateTime;
+
+        return LocalDateTime.of(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH),
+                zero,
+                zero,
+                zero);
     }
 
     /**
@@ -36,15 +37,14 @@ public class DateUtil {
     public static LocalDateTime dateToLocalDateTime(Date date) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-        LocalDateTime localDateTime =
-                LocalDateTime.of(
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH) + 1,
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        calendar.get(Calendar.HOUR),
-                        calendar.get(Calendar.MINUTE),
-                        calendar.get(Calendar.SECOND));
-        return localDateTime;
+
+        return LocalDateTime.of(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND));
     }
 
     /**
@@ -59,8 +59,8 @@ public class DateUtil {
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH),
-                0,
-                0,
-                0);
+                zero,
+                zero,
+                zero);
     }
 }
