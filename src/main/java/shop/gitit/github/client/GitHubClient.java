@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import shop.gitit.github.exception.GitHubCommitListNullException;
 import shop.gitit.github.exception.GitHubCommitShortInfoInvalidException;
+import shop.gitit.github.exception.GitHubGetRepositoriesInvalidException;
+import shop.gitit.github.exception.GitHubInvalidException;
 
 @Component
 public class GitHubClient {
@@ -22,24 +24,22 @@ public class GitHubClient {
             gitHub.checkApiUrlValidity();
             return gitHub;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new GitHubInvalidException(e);
         }
     }
 
     public List<GHRepository> getRepositories(String githubUserId) {
         try {
             GHUser ghUser = getGitHubClient().getUser(githubUserId);
-            List<GHRepository> repositories =
-                    ghUser.getRepositories().values().stream().collect(Collectors.toList());
-            return repositories;
+            return ghUser.getRepositories().values().stream().collect(Collectors.toList());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new GitHubGetRepositoriesInvalidException(e);
         }
     }
 
     public List<GHCommit.ShortInfo> getCommits(String githubUserId) {
         List<GHRepository> ghRepositoryList = getRepositories(githubUserId);
-        List<GHCommit.ShortInfo> commits = new ArrayList<GHCommit.ShortInfo>();
+        List<GHCommit.ShortInfo> commits = new ArrayList<>();
 
         for (GHRepository gr : ghRepositoryList) {
             try {
