@@ -31,7 +31,7 @@ class UpdateNickNameServiceTest {
     void updateNickName() {
         // given
         UpdateMemberNickNameReqDto request =
-                UpdateMemberNickNameReqDto.builder().memberId(1L).nickName("기릿").build();
+                UpdateMemberNickNameReqDto.builder().memberId(1L).nickname("기릿").build();
         Member member = MemberFixture.getMember();
 
         // when
@@ -39,6 +39,6 @@ class UpdateNickNameServiceTest {
         UpdateMemberNickNameResDto result = updateNickNameUsecase.updateNickName(request);
 
         // then
-        assertThat(result).extracting(UpdateMemberNickNameResDto::getNickName).as("기릿");
+        assertThat(result).extracting(UpdateMemberNickNameResDto::getNickname).as("기릿");
     }
 }

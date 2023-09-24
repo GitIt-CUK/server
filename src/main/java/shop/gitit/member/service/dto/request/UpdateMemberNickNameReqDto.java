@@ -8,5 +8,5 @@ import lombok.Getter;
 public class UpdateMemberNickNameReqDto {
 
     private long memberId;
-    private String nickName;
+    private String nickname;
 }

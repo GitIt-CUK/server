@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 public class UpdateMemberNickNameReq {
 
-    private String nickName;
+    private String nickname;
 }
