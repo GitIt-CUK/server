@@ -1,9 +1,5 @@
 package shop.gitit.github.client;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.kohsuke.github.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,6 +7,11 @@ import shop.gitit.github.exception.GitHubCommitListNullException;
 import shop.gitit.github.exception.GitHubCommitShortInfoInvalidException;
 import shop.gitit.github.exception.GitHubGetRepositoriesInvalidException;
 import shop.gitit.github.exception.GitHubInvalidException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class GitHubClient {
@@ -25,6 +26,15 @@ public class GitHubClient {
             return gitHub;
         } catch (IOException e) {
             throw new GitHubInvalidException(e);
+        }
+    }
+
+    public List<GHEventInfo> getGitHubEvents() {
+        GitHub gitHub = getGitHubClient();
+        try {
+            return gitHub.getEvents();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

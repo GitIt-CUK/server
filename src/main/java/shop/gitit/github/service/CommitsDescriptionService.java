@@ -1,11 +1,5 @@
 package shop.gitit.github.service;
 
-import static shop.gitit.core.util.DateUtil.*;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.kohsuke.github.GHCommit;
 import org.springframework.stereotype.Service;
@@ -15,6 +9,13 @@ import shop.gitit.github.service.usecase.CommitsDescriptionUsecase;
 import shop.gitit.member.domain.Member;
 import shop.gitit.member.exception.NoMemberException;
 import shop.gitit.member.repository.MemberRepository;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static shop.gitit.core.util.DateUtil.*;
 
 // 6
 // 93+134+9+22
@@ -26,7 +27,7 @@ public class CommitsDescriptionService implements CommitsDescriptionUsecase {
     private final MemberRepository memberRepository;
 
     @Override
-    public GetCommitsDescriptionResDto getCommitsDescription(Long memberId) throws IOException {
+    public GetCommitsDescriptionResDto getCommitsDescription(Long memberId) {
 
         Member member =
                 memberRepository
