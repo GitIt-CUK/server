@@ -1,6 +1,5 @@
 package shop.gitit.github.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -17,14 +16,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import shop.gitit.github.service.dto.response.GetCommitsDescriptionResDto;
-import shop.gitit.github.service.usecase.CommitsDescriptionUsecase;
+import shop.gitit.github.service.port.in.GetCommitsDescriptionUsecase;
 
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = GitHubController.class)
 class GitHubControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockBean private CommitsDescriptionUsecase commitsDescriptionUsecase;
+    @MockBean private GetCommitsDescriptionUsecase getCommitsDescriptionUsecase;
 
     @Test
     void 커밋_요약_정보_조회() throws Exception {
@@ -32,13 +31,13 @@ class GitHubControllerTest {
         String GET_GITHUB_COMMIT_DESC_URL = "/v1/home/commits/description/{member-id}";
         GetCommitsDescriptionResDto response =
                 GetCommitsDescriptionResDto.builder()
-                        .todayCommits("1")
-                        .thisWeekCommits("10")
-                        .serialCommitDay("4")
+                        .todayCommits(1)
+                        .thisWeekCommits(10)
+                        .serialCommitDay(4)
                         .build();
 
         // when
-        when(commitsDescriptionUsecase.getCommitsDescription(1L)).thenReturn(response);
+        when(getCommitsDescriptionUsecase.getCommitsDescription(1L)).thenReturn(response);
 
         // then
         mockMvc.perform(

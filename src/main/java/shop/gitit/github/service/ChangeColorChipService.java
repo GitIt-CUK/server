@@ -7,7 +7,7 @@ import shop.gitit.github.domain.GitHubInfo;
 import shop.gitit.github.exception.NoGitHubInfoException;
 import shop.gitit.github.repository.GitHubInfoRepository;
 import shop.gitit.github.service.dto.request.ChangeColorChipReqDto;
-import shop.gitit.github.service.usecase.ChangeColorChipUsecase;
+import shop.gitit.github.service.port.in.ChangeColorChipUsecase;
 
 @Service
 @RequiredArgsConstructor

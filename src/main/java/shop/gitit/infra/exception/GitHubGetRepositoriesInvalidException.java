@@ -1,4 +1,4 @@
-package shop.gitit.github.exception;
+package shop.gitit.infra.exception;
 
 public class GitHubGetRepositoriesInvalidException extends RuntimeException {
     public GitHubGetRepositoriesInvalidException() {}

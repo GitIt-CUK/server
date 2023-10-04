@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import shop.gitit.github.service.dto.request.ChangeColorChipReqDto;
-import shop.gitit.github.service.usecase.ChangeColorChipUsecase;
+import shop.gitit.github.service.port.in.ChangeColorChipUsecase;
 import shop.gitit.shop.service.event.ChangedColorChipEvent;
 
 @Component

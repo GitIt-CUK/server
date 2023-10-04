@@ -37,7 +37,6 @@ public class DateUtil {
     public static LocalDateTime dateToLocalDateTime(Date date) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-
         return LocalDateTime.of(
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
@@ -54,7 +53,6 @@ public class DateUtil {
         Date today = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(today);
-
         return LocalDateTime.of(
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
@@ -62,5 +60,17 @@ public class DateUtil {
                 zero,
                 zero,
                 zero);
+    }
+
+    public static boolean isToday(LocalDateTime stdDate, LocalDateTime target) {
+        return target.compareTo(stdDate) == 0;
+    }
+
+    public static boolean isPast(LocalDateTime stdDate, LocalDateTime target) {
+        return target.compareTo(stdDate) < 0;
+    }
+
+    public static boolean isFuture(LocalDateTime stdDate, LocalDateTime target) {
+        return target.compareTo(stdDate) > 0;
     }
 }
