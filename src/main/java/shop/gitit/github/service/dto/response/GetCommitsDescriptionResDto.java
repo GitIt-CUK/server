@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class GetCommitsDescriptionResDto {
 
-    String todayCommits;
-    String thisWeekCommits;
-    String serialCommitDay;
+    long todayCommits;
+    long thisWeekCommits;
+    int serialCommitDay;
 }
