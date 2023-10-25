@@ -1,11 +1,12 @@
 package shop.gitit.member.service.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Builder
-public class LoginResDto {
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class UserProfileResDto {
 
     private String githubId;
     private String email;

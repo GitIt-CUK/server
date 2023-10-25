@@ -1,6 +1,7 @@
 package shop.gitit.core.util.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class WebSecurityConfig {
 
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
+    private final String USER = "user";
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
@@ -40,16 +43,13 @@ public class WebSecurityConfig {
                     .and()
                     .authorizeRequests()
                     // member
-                    .antMatchers("/members/join")
-                    .permitAll()
-                    .antMatchers("/members/login")
-                    .permitAll()
-                    .antMatchers("/members/**")
+                    .antMatchers("/v1//members/login/**")
                     .permitAll()
                     .and()
                     .build();
         } catch (Exception e) {
-            throw new RuntimeException("security error", e);
+            log.info("security error 발생", e);
+            throw new RuntimeException(e);
         }
     }
 

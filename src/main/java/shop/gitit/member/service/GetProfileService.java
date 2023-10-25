@@ -8,7 +8,7 @@ import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.exception.NoMemberException;
 import shop.gitit.member.repository.MemberRepository;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
-import shop.gitit.member.service.usecase.GetProfileUsecase;
+import shop.gitit.member.service.port.in.GetProfileUsecase;
 
 @Service
 @RequiredArgsConstructor

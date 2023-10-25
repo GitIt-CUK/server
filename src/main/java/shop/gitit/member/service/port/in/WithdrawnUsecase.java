@@ -1,4 +1,4 @@
-package shop.gitit.member.service.usecase;
+package shop.gitit.member.service.port.in;
 
 public interface WithdrawnUsecase {
 

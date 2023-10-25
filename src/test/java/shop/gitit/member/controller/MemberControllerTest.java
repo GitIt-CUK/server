@@ -26,10 +26,10 @@ import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixtur
 import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.GetProfileUsecase;
-import shop.gitit.member.service.usecase.JoinUsecase;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
-import shop.gitit.member.service.usecase.WithdrawnUsecase;
+import shop.gitit.member.service.port.in.GetProfileUsecase;
+import shop.gitit.member.service.port.in.LoginUsecase;
+import shop.gitit.member.service.port.in.UpdateNickNameUsecase;
+import shop.gitit.member.service.port.in.WithdrawnUsecase;
 
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = MemberController.class)
@@ -38,9 +38,9 @@ class MemberControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private UpdateNickNameUsecase updateNickNameUsecase;
-    @MockBean private JoinUsecase joinUsecase;
     @MockBean private GetProfileUsecase getProfileUsecase;
     @MockBean private WithdrawnUsecase withdrawnUsecase;
+    @MockBean private LoginUsecase loginUsecase;
 
     @Test
     @WithMockUser
