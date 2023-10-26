@@ -12,16 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfig {
+public class SecurityConfig {
 
+    private final CorsFilter corsFilter;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
     private final String USER = "user";
@@ -29,26 +28,23 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         try {
-            return http.cors()
-                    .configurationSource(corsConfigurationSource())
-                    .and()
-                    .csrf()
-                    .disable()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint)
-                    .accessDeniedHandler(accessDeniedHandler)
-                    .and()
-                    .sessionManagement()
+            http.csrf().disable();
+            http.sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
+                    .addFilter(corsFilter) // 이 서버로 오는 모든 요청은 CORS 필터를 거치게 된다.
+                    .formLogin()
+                    .disable() // 시큐리티의 기본 로그인폼 비활성화
+                    .httpBasic()
+                    .disable() // JWT토큰을 사용하여 http bearer를 사용할 것이므로 비활성화
                     .authorizeRequests()
-                    // member
-                    .antMatchers("/v1//members/login/**")
+                    .antMatchers("/v1/members/login/**")
                     .permitAll()
-                    .and()
-                    .build();
+                    .antMatchers("/v1/**")
+                    .hasRole(USER);
+            return http.build();
         } catch (Exception e) {
-            log.info("security error 발생", e);
+            log.info("security config 에러 발생", e);
             throw new RuntimeException(e);
         }
     }
@@ -56,20 +52,5 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    // CORS 허용
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 }
