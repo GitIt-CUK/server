@@ -1,15 +1,16 @@
 package shop.gitit.member.domain.memberprofile;
 
-import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
-
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 import shop.gitit.member.exception.NicknameLengthViolationException;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+
+import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
 
 @Embeddable
 @Getter
@@ -21,13 +22,16 @@ public class MemberProfile {
     private String githubId;
 
     private String nickname;
+    private String profileImg;
 
     @Builder
-    public MemberProfile(String githubId, String nickname) {
+    public MemberProfile(String githubId, String nickname, String profileImg) {
         Assert.notNull(githubId, IS_NULL.getMessage());
         Assert.notNull(nickname, IS_NULL.getMessage());
+        Assert.notNull(profileImg, IS_NULL.getMessage());
         this.githubId = githubId;
         this.nickname = nickname;
+        this.profileImg = profileImg;
     }
 
     public void updateNickname(String nickname) {
