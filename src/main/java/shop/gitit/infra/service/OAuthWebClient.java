@@ -72,22 +72,22 @@ public class OAuthWebClient implements OAuthService {
 
     @Override
     public UserProfileResDto getUserProfile(OAuthTokenResponse tokenResponse) {
-        Map<String, Object> userAttributes = getUserAttributes(tokenResponse);
+        Map<String, Object> gitHubUserInfo = getGitHubUserInfo(tokenResponse);
         log.info(
                 "==== 깃허브 회원정보 조회 ====\nlogin={}, name={}, email={}, avatar_url={}",
-                userAttributes.get("login"),
-                userAttributes.get("name"),
-                userAttributes.get("email"),
-                userAttributes.get("avatar_url"));
+                gitHubUserInfo.get("login"),
+                gitHubUserInfo.get("name"),
+                gitHubUserInfo.get("email"),
+                gitHubUserInfo.get("avatar_url"));
         return UserProfileResDto.builder() // TODO 다른 소셜 로그인이 추가될 때 변경에 용이하도록 개선하기
-                .githubId((String) userAttributes.get("login"))
-                .name((String) userAttributes.get("name"))
-                .email((String) userAttributes.get("email"))
-                .imageUrl((String) userAttributes.get("avatar_url"))
+                .githubId((String) gitHubUserInfo.get("login"))
+                .name((String) gitHubUserInfo.get("name"))
+                .email((String) gitHubUserInfo.get("email"))
+                .imageUrl((String) gitHubUserInfo.get("avatar_url"))
                 .build();
     }
 
-    private Map<String, Object> getUserAttributes(OAuthTokenResponse tokenResponse) {
+    private Map<String, Object> getGitHubUserInfo(OAuthTokenResponse tokenResponse) {
         return WebClient.create()
                 .get()
                 .uri(userInfoUri)
