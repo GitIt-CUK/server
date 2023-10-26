@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import shop.gitit.infra.exception.FailGetGitHubAccessToken;
+import shop.gitit.infra.exception.FailGetGitHubUserInfo;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
 import shop.gitit.member.service.dto.response.UserProfileResDto;
 import shop.gitit.member.service.port.out.OAuthService;
@@ -59,7 +61,7 @@ public class OAuthWebClient implements OAuthService {
                 .retrieve()
                 .bodyToMono(OAuthTokenResponse.class)
                 .blockOptional()
-                .orElseThrow(() -> new RuntimeException()); // TODO 커스텀 예외 추가
+                .orElseThrow(() -> new FailGetGitHubAccessToken("깃허브 access token 획득 실패"));
     }
 
     private MultiValueMap<String, String> makeTokenRequestBody(String code) {
@@ -95,6 +97,6 @@ public class OAuthWebClient implements OAuthService {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                 .blockOptional()
-                .orElseThrow(() -> new RuntimeException()); // TODO 커스텀 예외 추가
+                .orElseThrow(() -> new FailGetGitHubUserInfo("깃허브 사용자 정보 조회 실패"));
     }
 }
