@@ -9,7 +9,7 @@ import shop.gitit.member.service.dto.response.LoginResDto;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
 import shop.gitit.member.service.dto.response.UserProfileResDto;
 import shop.gitit.member.service.port.in.LoginUsecase;
-import shop.gitit.member.service.port.out.OAuthUsecase;
+import shop.gitit.member.service.port.out.OAuthService;
 
 @Slf4j
 @Service
@@ -17,13 +17,13 @@ import shop.gitit.member.service.port.out.OAuthUsecase;
 @Transactional
 public class LoginService implements LoginUsecase {
 
-    private final OAuthUsecase oAuthUsecase;
+    private final OAuthService oAuthService;
     private final MemberRepository memberRepository;
 
     @Override
     public LoginResDto login(String code) {
-        OAuthTokenResponse tokenResponse = oAuthUsecase.getToken(code);
-        UserProfileResDto userProfileResDto = oAuthUsecase.getUserProfile(tokenResponse);
+        OAuthTokenResponse tokenResponse = oAuthService.getToken(code);
+        UserProfileResDto userProfileResDto = oAuthService.getUserProfile(tokenResponse);
         // TODO 이미 가입된 회원 -> 로그인, 가입 정보 없음 -> 회원가입
         return LoginResDto.builder()
                 .email(userProfileResDto.getEmail())

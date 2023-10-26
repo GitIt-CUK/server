@@ -13,7 +13,7 @@ spring:
         format_sql: true
         use_sql_comments: true
 
-github:
-  client:
-    oauth:
-      token: token
+
+kohsuke:
+  github:
+    token: token

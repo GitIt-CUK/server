@@ -13,11 +13,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
 import shop.gitit.member.service.dto.response.UserProfileResDto;
-import shop.gitit.member.service.port.out.OAuthUsecase;
+import shop.gitit.member.service.port.out.OAuthService;
 
 @Slf4j
 @Service
-public class OAuthService implements OAuthUsecase {
+public class OAuthWebClient implements OAuthService {
 
     private final String redirectUri;
     private final String tokenUri;
@@ -25,7 +25,7 @@ public class OAuthService implements OAuthUsecase {
     private final String clientId;
     private final String clientSecret;
 
-    public OAuthService(
+    public OAuthWebClient(
             @Value("${spring.security.oauth2.client.registration.github.redirect-uri}")
                     String redirectUri,
             @Value("${spring.security.oauth2.client.provider.github.token-uri}") String tokenUri,
