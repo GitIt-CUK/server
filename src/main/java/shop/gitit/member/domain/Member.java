@@ -35,6 +35,9 @@ public class Member extends BaseEntity {
     @AttributeOverride(
             name = "nickname",
             column = @Column(name = "member_nickname", nullable = false))
+    @AttributeOverride(
+            name = "profileImg",
+            column = @Column(name = "member_profile_img", nullable = false))
     private MemberProfile profile;
 
     @ElementCollection
