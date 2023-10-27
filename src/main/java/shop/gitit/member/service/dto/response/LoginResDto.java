@@ -7,8 +7,7 @@ import lombok.Getter;
 @Builder
 public class LoginResDto {
 
-    private String githubId;
-    private String email;
-    private String name;
-    private String imageUrl;
+    private Long memberId;
+    private String refreshToken;
+    private String accessToken;
 }

@@ -38,6 +38,10 @@ public class MemberProfile {
         this.nickname = nickname;
     }
 
+    public void updateProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
     private void validateNickname(String nickname) {
         if (isInvalid(nickname)) {
             throw new NicknameLengthViolationException();

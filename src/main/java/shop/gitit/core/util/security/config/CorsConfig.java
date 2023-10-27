@@ -1,4 +1,4 @@
-package shop.gitit.core.util.security;
+package shop.gitit.core.util.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

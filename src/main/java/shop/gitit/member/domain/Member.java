@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 import shop.gitit.core.baseentity.BaseEntity;
-import shop.gitit.member.domain.authority.Authority;
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.domain.status.MemberStatus;
 import shop.gitit.member.exception.AlreadyWithdrawnException;
@@ -42,13 +41,14 @@ public class Member extends BaseEntity {
 
     @ElementCollection
     @CollectionTable(name = "MEMBER_AUTHORITY", joinColumns = @JoinColumn(name = "member_id"))
-    private List<Authority> authorities = new ArrayList<>();
+    private List<String> authorities = new ArrayList<>();
 
     @Column(name = "member_status")
+    @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
     @Builder
-    public Member(MemberProfile profile, List<Authority> authorities) {
+    public Member(MemberProfile profile, List<String> authorities) {
         Assert.notNull(profile, IS_NULL.getMessage());
         Assert.notNull(authorities, IS_NULL.getMessage());
         this.profile = profile;

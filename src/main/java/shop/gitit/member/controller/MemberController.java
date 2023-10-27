@@ -1,19 +1,17 @@
 package shop.gitit.member.controller;
 
-import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
+import shop.gitit.member.service.dto.ReissueTokenResDto;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
 import shop.gitit.member.service.dto.response.LoginResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.port.in.GetProfileUsecase;
-import shop.gitit.member.service.port.in.LoginUsecase;
-import shop.gitit.member.service.port.in.UpdateNickNameUsecase;
-import shop.gitit.member.service.port.in.WithdrawnUsecase;
+import shop.gitit.member.service.port.in.*;
+
+import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +22,7 @@ public class MemberController {
     private final GetProfileUsecase getProfileUsecase;
     private final WithdrawnUsecase withdrawnUsecase;
     private final LoginUsecase loginUsecase;
+    private final ReissueTokenUsecase reissueTokenUsecase;
 
     @PatchMapping("/profile/{member-id}")
     public ResponseEntity<UpdateMemberNickNameResDto> updateMemberNickName(
@@ -48,5 +47,11 @@ public class MemberController {
     @GetMapping("/login/oauth")
     public ResponseEntity<LoginResDto> login(@RequestParam(name = "code") String code) {
         return ResponseEntity.ok(loginUsecase.login(code));
+    }
+
+    @PostMapping("/{member-id}/token")
+    public ResponseEntity<ReissueTokenResDto> reissueToken(
+            @PathVariable(name = "member-id") Long memberId, @RequestBody String refreshToken) {
+        return ResponseEntity.ok(reissueTokenUsecase.reissueToken(memberId, refreshToken));
     }
 }

@@ -13,8 +13,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import shop.gitit.infra.exception.FailGetGitHubAccessToken;
 import shop.gitit.infra.exception.FailGetGitHubUserInfo;
+import shop.gitit.member.service.dto.response.GithubUserInfo;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
-import shop.gitit.member.service.dto.response.UserProfileResDto;
 import shop.gitit.member.service.port.out.OAuthService;
 
 @Slf4j
@@ -73,7 +73,7 @@ public class OAuthWebClient implements OAuthService {
     }
 
     @Override
-    public UserProfileResDto getUserProfile(OAuthTokenResponse tokenResponse) {
+    public GithubUserInfo getUserProfile(OAuthTokenResponse tokenResponse) {
         Map<String, Object> gitHubUserInfo = getGitHubUserInfo(tokenResponse);
         log.info(
                 "==== 깃허브 회원정보 조회 ====\nlogin={}, name={}, email={}, avatar_url={}",
@@ -81,11 +81,11 @@ public class OAuthWebClient implements OAuthService {
                 gitHubUserInfo.get("name"),
                 gitHubUserInfo.get("email"),
                 gitHubUserInfo.get("avatar_url"));
-        return UserProfileResDto.builder() // TODO 다른 소셜 로그인이 추가될 때 변경에 용이하도록 개선하기
+        return GithubUserInfo.builder() // TODO 다른 소셜 로그인이 추가될 때 변경에 용이하도록 개선하기
                 .githubId((String) gitHubUserInfo.get("login"))
-                .name((String) gitHubUserInfo.get("name"))
+                .nickname((String) gitHubUserInfo.get("name"))
                 .email((String) gitHubUserInfo.get("email"))
-                .imageUrl((String) gitHubUserInfo.get("avatar_url"))
+                .profileImg((String) gitHubUserInfo.get("avatar_url"))
                 .build();
     }
 

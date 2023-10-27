@@ -1,11 +1,6 @@
-package shop.gitit.core.util.handler;
+package shop.gitit.core.util.jwt.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -14,30 +9,40 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import shop.gitit.core.template.ErrorMessage;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final ObjectMapper objectMapper;
-    private final String unAuthenticatedMessage = "인증되지 않은 사용자입니다.";
 
     @Override
     public void commence(
             HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
-        ErrorMessage errorMessage =
-                ErrorMessage.builder().errorCode(401).message(unAuthenticatedMessage).build();
+        ErrorMessage errorMessage = null;
+        String exception = (String) request.getAttribute("exception");
+        if (exception == null) {
+            errorMessage = getErrorMessage(401, "인증되지 않은 사용자입니다.");
+        }
+        else if (exception.equals("ExpiredJwtException")) {
+            errorMessage = getErrorMessage(410, "토큰이 만료되었습니다. 토큰 재발급을 받아야 합니다.");
+        }
         try {
             writer.write(objectMapper.writeValueAsString(errorMessage));
-        } catch (Exception e) {
-            log.error("응답 메시지 작성 실패", e);
+        } catch (Exception ignored) {
+            log.error("에러 메시지 작성 중 예외 발생");
         } finally {
             if (writer != null) {
                 writer.flush();
@@ -45,5 +50,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             }
         }
         response.getWriter().write(objectMapper.writeValueAsString(errorMessage));
+    }
+
+    private ErrorMessage getErrorMessage(int errorCode, String message) {
+        return ErrorMessage.builder().errorCode(errorCode).message(message).build();
     }
 }

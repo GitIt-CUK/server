@@ -17,3 +17,8 @@ spring:
 kohsuke:
   github:
     token: token
+
+jwt:
+  secret:
+    key: secret-key-for-test
+    expiration-time: 60000  # 1분 -> 30분으로 변경

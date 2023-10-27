@@ -6,10 +6,10 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserProfileResDto {
+public class GithubUserInfo {
 
     private String githubId;
     private String email;
-    private String name;
-    private String imageUrl;
+    private String nickname;
+    private String profileImg;
 }
