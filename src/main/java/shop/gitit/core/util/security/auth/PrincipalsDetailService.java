@@ -20,7 +20,7 @@ public class PrincipalsDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String githubId) throws UsernameNotFoundException {
-        Member member = memberRepository.findByGithubId(githubId);
+        Member member = memberRepository.findByGithubId(githubId).orElseThrow();
         return new User(member.getProfile().getGithubId(), null, mapToSimpleGrandAuthority(member));
     }
 

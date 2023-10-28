@@ -1,6 +1,10 @@
 package shop.gitit.core.util.jwt.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -8,11 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import shop.gitit.core.template.ErrorMessage;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @Slf4j
 @Component
@@ -35,8 +34,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         String exception = (String) request.getAttribute("exception");
         if (exception == null) {
             errorMessage = getErrorMessage(401, "인증되지 않은 사용자입니다.");
-        }
-        else if (exception.equals("ExpiredJwtException")) {
+        } else if (exception.equals("ExpiredJwtException")) {
             errorMessage = getErrorMessage(410, "토큰이 만료되었습니다. 토큰 재발급을 받아야 합니다.");
         }
         try {

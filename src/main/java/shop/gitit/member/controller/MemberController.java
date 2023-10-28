@@ -1,5 +1,7 @@
 package shop.gitit.member.controller;
 
+import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +12,6 @@ import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
 import shop.gitit.member.service.dto.response.LoginResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
 import shop.gitit.member.service.port.in.*;
-
-import static shop.gitit.member.controller.mapper.MemberMapper.toUpdateMemberNickNameReqDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,9 +49,10 @@ public class MemberController {
         return ResponseEntity.ok(loginUsecase.login(code));
     }
 
-    @PostMapping("/{member-id}/token")
+    @PostMapping("/{member-id}/token/{refresh-token}")
     public ResponseEntity<ReissueTokenResDto> reissueToken(
-            @PathVariable(name = "member-id") Long memberId, @RequestBody String refreshToken) {
+            @PathVariable(name = "member-id") Long memberId,
+            @PathVariable(name = "refresh-token") String refreshToken) {
         return ResponseEntity.ok(reissueTokenUsecase.reissueToken(memberId, refreshToken));
     }
 }

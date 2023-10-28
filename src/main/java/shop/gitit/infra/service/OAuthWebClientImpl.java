@@ -15,11 +15,11 @@ import shop.gitit.infra.exception.FailGetGitHubAccessToken;
 import shop.gitit.infra.exception.FailGetGitHubUserInfo;
 import shop.gitit.member.service.dto.response.GithubUserInfo;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
-import shop.gitit.member.service.port.out.OAuthService;
+import shop.gitit.member.service.port.out.OAuthWebClient;
 
 @Slf4j
 @Service
-public class OAuthWebClient implements OAuthService {
+public class OAuthWebClientImpl implements OAuthWebClient {
 
     private final String redirectUri;
     private final String tokenUri;
@@ -27,7 +27,7 @@ public class OAuthWebClient implements OAuthService {
     private final String clientId;
     private final String clientSecret;
 
-    public OAuthWebClient(
+    public OAuthWebClientImpl(
             @Value("${spring.security.oauth2.client.registration.github.redirect-uri}")
                     String redirectUri,
             @Value("${spring.security.oauth2.client.provider.github.token-uri}") String tokenUri,

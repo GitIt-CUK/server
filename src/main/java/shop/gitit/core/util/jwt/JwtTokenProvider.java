@@ -2,6 +2,12 @@ package shop.gitit.core.util.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import javax.servlet.ServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,19 +19,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import shop.gitit.core.util.jwt.dto.JwtToken;
 
-import javax.servlet.ServletRequest;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 @Slf4j
 @Component
 public class JwtTokenProvider {
 
     @Value("${jwt.secret.key}")
     private String SECRET_KEY;
+
     @Value("${jwt.secret.expiration-time}")
     private int ACCESS_TOKEN_EXPRIATION_TIME;
 
@@ -39,12 +39,16 @@ public class JwtTokenProvider {
         log.info("secret key: {}", SECRET_KEY);
         StringBuilder sb = new StringBuilder();
         sb.append("Bearer ");
-        sb.append(Jwts.builder()
-                .setSubject(memberId.toString())
-                .claim("memberId", memberId)
-                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPRIATION_TIME))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
-                .compact());
+        sb.append(
+                Jwts.builder()
+                        .setSubject(memberId.toString())
+                        .claim("memberId", memberId)
+                        .claim("authorities", "MEMBER")
+                        .setExpiration(
+                                new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPRIATION_TIME))
+                        .signWith(
+                                Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
+                        .compact());
         return sb.toString();
     }
 
@@ -58,12 +62,7 @@ public class JwtTokenProvider {
             return false;
         }
         try {
-            Jws<Claims> claims =
-                    Jwts.parserBuilder()
-                            .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
-                            .build()
-                            .parseClaimsJws(accessToken);
-            return claims.getBody().getExpiration().after(new Date());
+            return parseClaims(accessToken).getExpiration().after(new Date());
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.error("잘못된 JWT 서명입니다.", e);
         } catch (UnsupportedJwtException e) {
@@ -91,7 +90,7 @@ public class JwtTokenProvider {
         return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                 .build()
-                .parseClaimsJws(accessToken)
+                .parseClaimsJws(accessToken.replace("Bearer ", ""))
                 .getBody();
     }
 }

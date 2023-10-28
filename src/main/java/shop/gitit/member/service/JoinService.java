@@ -1,5 +1,6 @@
 package shop.gitit.member.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,8 +9,6 @@ import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.repository.MemberRepository;
 import shop.gitit.member.service.dto.response.GithubUserInfo;
 import shop.gitit.member.service.port.in.JoinUsecase;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
