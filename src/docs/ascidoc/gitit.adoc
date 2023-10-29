@@ -49,6 +49,25 @@ include::{snippets}/withdrawn/members/http-request.adoc[]
 
 include::{snippets}/withdrawn/members/http-response.adoc[]
 
+=== 깃허브 로그인
+
+==== Request
+
+include::{snippets}/members/github/login/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/members/github/login/http-response.adoc[]
+
+=== Access Token 재발급
+
+==== Request
+
+include::{snippets}/members/reissue/token/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/members/reissue/token/http-response.adoc[]
 
 == Shop
 

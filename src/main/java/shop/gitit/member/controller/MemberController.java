@@ -44,7 +44,7 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/login/oauth")
+    @PostMapping("/login/oauth")
     public ResponseEntity<LoginResDto> login(@RequestParam(name = "code") String code) {
         return ResponseEntity.ok(loginUsecase.login(code));
     }
