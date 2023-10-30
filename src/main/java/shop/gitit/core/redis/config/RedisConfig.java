@@ -29,7 +29,6 @@ public class RedisConfig {
     public RedisTemplate<?, ?> redisTemplate() {
         RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
-        template.setEnableTransactionSupport(true);
         return template;
     }
 }

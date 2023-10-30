@@ -116,7 +116,7 @@ class MemberControllerTest {
     @WithMockUser
     void 깃허브_로그인() throws Exception {
         // given
-        String POST_LOGIN_OAUTH_URL = "/v1/members/login/oauth";
+        String GET_LOGIN_OAUTH_URL = "/v1/members/login/oauth";
         String code = "github-access-token";
         LoginResDto dto =
                 LoginResDto.builder()
@@ -130,7 +130,7 @@ class MemberControllerTest {
 
         // then
         mockMvc.perform(
-                        post(POST_LOGIN_OAUTH_URL)
+                        get(GET_LOGIN_OAUTH_URL)
                                 .param("code", code)
                                 .with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON))
