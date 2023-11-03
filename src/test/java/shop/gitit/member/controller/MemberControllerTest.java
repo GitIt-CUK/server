@@ -1,11 +1,9 @@
 package shop.gitit.member.controller;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,13 +21,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixture;
+import shop.gitit.member.service.dto.ReissueTokenResDto;
 import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
+import shop.gitit.member.service.dto.response.LoginResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.GetProfileUsecase;
-import shop.gitit.member.service.usecase.JoinUsecase;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
-import shop.gitit.member.service.usecase.WithdrawnUsecase;
+import shop.gitit.member.service.port.in.*;
 
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = MemberController.class)
@@ -38,9 +35,10 @@ class MemberControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
     @MockBean private UpdateNickNameUsecase updateNickNameUsecase;
-    @MockBean private JoinUsecase joinUsecase;
     @MockBean private GetProfileUsecase getProfileUsecase;
     @MockBean private WithdrawnUsecase withdrawnUsecase;
+    @MockBean private LoginUsecase loginUsecase;
+    @MockBean private ReissueTokenUsecase reissueTokenUsecase;
 
     @Test
     @WithMockUser
@@ -112,5 +110,53 @@ class MemberControllerTest {
                 .andExpectAll(status().isOk())
                 .andDo(print())
                 .andDo(createDocument("withdrawn/members"));
+    }
+
+    @Test
+    @WithMockUser
+    void 깃허브_로그인() throws Exception {
+        // given
+        String GET_LOGIN_OAUTH_URL = "/v1/members/login/oauth";
+        String code = "github-access-token";
+        LoginResDto dto =
+                LoginResDto.builder()
+                        .memberId(1L)
+                        .accessToken("access-token")
+                        .refreshToken("refresh-token")
+                        .build();
+
+        // when
+        when(loginUsecase.login(anyString())).thenReturn(dto);
+
+        // then
+        mockMvc.perform(
+                        get(GET_LOGIN_OAUTH_URL)
+                                .param("code", code)
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andDo(createDocument("members/github/login"));
+    }
+
+    @Test
+    @WithMockUser
+    void ATK_재발급() throws Exception {
+        // given
+        String POST_REISSUE_TOKEN_URL = "/v1/members/{member-id}/token/{refresh-token}";
+        ReissueTokenResDto dto =
+                ReissueTokenResDto.builder().accessToken("new-access-token").build();
+
+        // when
+        when(reissueTokenUsecase.reissueToken(anyLong(), anyString())).thenReturn(dto);
+
+        // then
+        mockMvc.perform(
+                        post(POST_REISSUE_TOKEN_URL, 1L, "RTK")
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpectAll(status().isOk(), content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andDo(createDocument("members/reissue/token"));
     }
 }

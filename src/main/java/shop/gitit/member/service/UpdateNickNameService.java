@@ -8,7 +8,7 @@ import shop.gitit.member.exception.NoMemberException;
 import shop.gitit.member.repository.MemberRepository;
 import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
+import shop.gitit.member.service.port.in.UpdateNickNameUsecase;
 
 @Service
 @RequiredArgsConstructor

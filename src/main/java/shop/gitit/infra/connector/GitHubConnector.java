@@ -10,7 +10,7 @@ import shop.gitit.infra.exception.FailConnectToGitHubException;
 @Component
 public class GitHubConnector {
 
-    @Value("${github.client.oauth.token}")
+    @Value("${kohsuke.github.token}")
     private String githubOAuthToken;
 
     public GitHub getGithub() {

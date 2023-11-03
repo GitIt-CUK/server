@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import shop.gitit.github.service.dto.response.GetCommitsDescriptionResDto;
 import shop.gitit.github.service.port.in.GetCommitsDescriptionUsecase;
@@ -26,6 +27,7 @@ class GitHubControllerTest {
     @MockBean private GetCommitsDescriptionUsecase getCommitsDescriptionUsecase;
 
     @Test
+    @WithMockUser
     void 커밋_요약_정보_조회() throws Exception {
         // given
         String GET_GITHUB_COMMIT_DESC_URL = "/v1/home/commits/description/{member-id}";

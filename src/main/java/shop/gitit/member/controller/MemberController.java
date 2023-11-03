@@ -7,22 +7,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
+import shop.gitit.member.service.dto.ReissueTokenResDto;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
+import shop.gitit.member.service.dto.response.LoginResDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.GetProfileUsecase;
-import shop.gitit.member.service.usecase.JoinUsecase;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
-import shop.gitit.member.service.usecase.WithdrawnUsecase;
+import shop.gitit.member.service.port.in.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/members")
 public class MemberController {
 
-    private final JoinUsecase joinUsecase;
     private final UpdateNickNameUsecase updateNickNameUsecase;
     private final GetProfileUsecase getProfileUsecase;
     private final WithdrawnUsecase withdrawnUsecase;
+    private final LoginUsecase loginUsecase;
+    private final ReissueTokenUsecase reissueTokenUsecase;
 
     @PatchMapping("/profile/{member-id}")
     public ResponseEntity<UpdateMemberNickNameResDto> updateMemberNickName(
@@ -42,5 +42,17 @@ public class MemberController {
     public ResponseEntity withdrawMember(@PathVariable(name = "member-id") long memberId) {
         withdrawnUsecase.withdrawMember(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/login/oauth")
+    public ResponseEntity<LoginResDto> login(@RequestParam(name = "code") String code) {
+        return ResponseEntity.ok(loginUsecase.login(code));
+    }
+
+    @PostMapping("/{member-id}/token/{refresh-token}")
+    public ResponseEntity<ReissueTokenResDto> reissueToken(
+            @PathVariable(name = "member-id") Long memberId,
+            @PathVariable(name = "refresh-token") String refreshToken) {
+        return ResponseEntity.ok(reissueTokenUsecase.reissueToken(memberId, refreshToken));
     }
 }

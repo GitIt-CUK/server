@@ -1,7 +1,9 @@
 spring:
+  profiles:
+    include: oauth
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -10,8 +12,15 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+  redis:
+    host: localhost
+    port: 6379
 
-github:
-  client:
-    oauth:
-      token: token
+kohsuke:
+  github:
+    token: token
+
+jwt:
+  secret:
+    key: secretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortestsecretkeyfortest
+    expiration-time: 60000  # 1분 -> 30분으로 변경

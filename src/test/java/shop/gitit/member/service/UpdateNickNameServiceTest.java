@@ -17,7 +17,7 @@ import shop.gitit.member.domain.support.member.MemberFixture;
 import shop.gitit.member.repository.MemberRepository;
 import shop.gitit.member.service.dto.request.UpdateMemberNickNameReqDto;
 import shop.gitit.member.service.dto.response.UpdateMemberNickNameResDto;
-import shop.gitit.member.service.usecase.UpdateNickNameUsecase;
+import shop.gitit.member.service.port.in.UpdateNickNameUsecase;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {UpdateNickNameService.class})

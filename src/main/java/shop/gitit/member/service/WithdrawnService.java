@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.gitit.member.domain.Member;
 import shop.gitit.member.exception.NoMemberException;
 import shop.gitit.member.repository.MemberRepository;
-import shop.gitit.member.service.usecase.WithdrawnUsecase;
+import shop.gitit.member.service.port.in.WithdrawnUsecase;
 
 @Service
 @RequiredArgsConstructor

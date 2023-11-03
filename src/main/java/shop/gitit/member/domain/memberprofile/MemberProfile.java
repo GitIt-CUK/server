@@ -21,18 +21,25 @@ public class MemberProfile {
     private String githubId;
 
     private String nickname;
+    private String profileImg;
 
     @Builder
-    public MemberProfile(String githubId, String nickname) {
+    public MemberProfile(String githubId, String nickname, String profileImg) {
         Assert.notNull(githubId, IS_NULL.getMessage());
         Assert.notNull(nickname, IS_NULL.getMessage());
+        Assert.notNull(profileImg, IS_NULL.getMessage());
         this.githubId = githubId;
         this.nickname = nickname;
+        this.profileImg = profileImg;
     }
 
     public void updateNickname(String nickname) {
         validateNickname(nickname);
         this.nickname = nickname;
+    }
+
+    public void updateProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 
     private void validateNickname(String nickname) {

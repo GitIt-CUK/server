@@ -16,7 +16,7 @@ import shop.gitit.member.domain.Member;
 import shop.gitit.member.domain.support.member.MemberFixture;
 import shop.gitit.member.repository.MemberRepository;
 import shop.gitit.member.service.dto.response.GetMemberProfileResDto;
-import shop.gitit.member.service.usecase.GetProfileUsecase;
+import shop.gitit.member.service.port.in.GetProfileUsecase;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {GetProfileService.class})
