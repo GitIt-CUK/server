@@ -7,6 +7,10 @@ import lombok.Getter;
 @Builder
 public class GetMemberProfileResDto {
 
-    String githubId;
-    String nickname;
+    private Long memberId;
+    private String githubId;
+    private String nickname;
+    private String profileImg;
+    private int commitCount;
+    private int commitLimit;
 }

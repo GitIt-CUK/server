@@ -18,6 +18,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import shop.gitit.github.domain.GitHubInfo;
+import shop.gitit.github.support.githubinfo.GitHubInfoFixture;
 import shop.gitit.member.controller.request.UpdateMemberNickNameReq;
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.domain.support.member.memberprofile.MemberProfileFixture;
@@ -73,10 +75,15 @@ class MemberControllerTest {
         // given
         String GET_MEMBER_PROFILE_URL = "/v1/members/profile/{member-id}";
         MemberProfile memberProfile = MemberProfileFixture.getMyProfile();
+        GitHubInfo gitHubInfo = GitHubInfoFixture.getGitHubInfo(1L);
         GetMemberProfileResDto response =
                 GetMemberProfileResDto.builder()
+                        .memberId(1L)
                         .githubId(memberProfile.getGithubId())
                         .nickname(memberProfile.getNickname())
+                        .profileImg(memberProfile.getProfileImg())
+                        .commitCount(gitHubInfo.getCommitCount().getCount())
+                        .commitLimit(gitHubInfo.getTier().getLimit())
                         .build();
 
         // when
