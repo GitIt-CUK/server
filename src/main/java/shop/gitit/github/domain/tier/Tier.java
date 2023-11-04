@@ -1,7 +1,9 @@
 package shop.gitit.github.domain.tier;
 
 import java.util.stream.Stream;
+import lombok.Getter;
 
+@Getter
 public enum Tier {
     IRON(0),
     BRONZE4(2),
