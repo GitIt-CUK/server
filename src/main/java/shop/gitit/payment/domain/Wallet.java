@@ -1,11 +1,12 @@
 package shop.gitit.payment.domain;
 
-import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.payment.domain.money.Money;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "WALLET")
@@ -14,7 +15,7 @@ import shop.gitit.payment.domain.money.Money;
 public class Wallet extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")
     private Long id;
 
