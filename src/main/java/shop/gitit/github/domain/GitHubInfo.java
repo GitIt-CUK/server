@@ -1,5 +1,8 @@
 package shop.gitit.github.domain;
 
+import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
+
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,10 +11,6 @@ import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.github.domain.commitcount.CommitCount;
 import shop.gitit.github.domain.grasscolor.GrassColor;
 import shop.gitit.github.domain.tier.Tier;
-
-import javax.persistence.*;
-
-import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
 
 @Entity
 @Table(name = "GITHUB_INFO")

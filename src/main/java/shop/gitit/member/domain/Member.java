@@ -1,5 +1,12 @@
 package shop.gitit.member.domain;
 
+import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
+import static shop.gitit.member.domain.status.MemberStatus.ACTIVE;
+import static shop.gitit.member.domain.status.MemberStatus.INACTIVE;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,14 +16,6 @@ import shop.gitit.core.baseentity.BaseEntity;
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.domain.status.MemberStatus;
 import shop.gitit.member.exception.AlreadyWithdrawnException;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static shop.gitit.core.exception.ExceptionEnum.IS_NULL;
-import static shop.gitit.member.domain.status.MemberStatus.ACTIVE;
-import static shop.gitit.member.domain.status.MemberStatus.INACTIVE;
 
 @Entity(name = "MEMBER")
 @Getter
