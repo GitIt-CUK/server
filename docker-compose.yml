@@ -1,0 +1,14 @@
+version: "3"
+services:
+  spring-app:
+    container_name: gitit-app
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+  redis:
+    container_name: gitit-redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
