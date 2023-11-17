@@ -14,7 +14,7 @@ import shop.gitit.payment.domain.money.Money;
 public class Wallet extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")
     private Long id;
 

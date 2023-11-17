@@ -29,7 +29,7 @@ public class ReissueTokenService implements ReissueTokenUsecase {
                                 () ->
                                         new NoRefreshTokenException(
                                                 "Refresh Token이 더이상 유효하지 않습니다. 다시 로그인 하세요."));
-        if (!token.getToken().equals(refreshToken)) {
+        if (!token.getToken().equals(refreshToken)) { // TODO: RTK가 일치하지 않는 것일 뿐이다.
             log.warn("회원 {}의 RTK {}이 탈취당했습니다.", memberId, refreshToken);
             redisRepository.deleteById(memberId);
             throw new StolenTokenException("토큰이 탈취당했습니다.");

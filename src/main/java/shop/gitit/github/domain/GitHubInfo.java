@@ -19,7 +19,7 @@ import shop.gitit.github.domain.tier.Tier;
 public class GitHubInfo extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "github_info_id")
     private Long id;
 
