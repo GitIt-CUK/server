@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.gitit.github.service.port.in.CreateGitHubInfoUsecase;
 import shop.gitit.member.domain.Member;
 import shop.gitit.member.domain.memberprofile.MemberProfile;
 import shop.gitit.member.repository.MemberRepository;
@@ -15,6 +16,7 @@ import shop.gitit.member.service.port.in.JoinUsecase;
 @Transactional
 public class JoinService implements JoinUsecase {
 
+    private final CreateGitHubInfoUsecase createGitHubInfoUsecase;
     private final MemberRepository memberRepository;
     private final String MEMBER = "MEMBER";
 
@@ -39,6 +41,7 @@ public class JoinService implements JoinUsecase {
                                             .build())
                             .authorities(List.of(MEMBER))
                             .build();
+            createGitHubInfoUsecase.createGitHubInfo(member.getId());
         }
         return member;
     }
