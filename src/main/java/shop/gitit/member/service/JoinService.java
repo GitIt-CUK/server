@@ -18,17 +18,34 @@ public class JoinService implements JoinUsecase {
     private final MemberRepository memberRepository;
     private final String MEMBER = "MEMBER";
 
+    @Override
     public Member join(GithubUserInfo githubUserInfo) {
-        Member member =
-                Member.builder()
-                        .profile(
-                                MemberProfile.builder()
-                                        .profileImg(githubUserInfo.getProfileImg())
-                                        .githubId(githubUserInfo.getGithubId())
-                                        .nickname(githubUserInfo.getGithubId())
-                                        .build())
-                        .authorities(List.of(MEMBER))
-                        .build();
-        return memberRepository.save(member);
+        Member member = memberRepository.findByGithubId(githubUserInfo.getGithubId()).orElse(null);
+        member = createMemberIfNull(githubUserInfo, member);
+        memberRepository.save(member);
+        updateProfileImg(githubUserInfo, member);
+        return member;
+    }
+
+    private Member createMemberIfNull(GithubUserInfo githubUserInfo, Member member) {
+        if (member == null) {
+            member =
+                    Member.builder()
+                            .profile(
+                                    MemberProfile.builder()
+                                            .profileImg(githubUserInfo.getProfileImg())
+                                            .githubId(githubUserInfo.getGithubId())
+                                            .nickname(githubUserInfo.getGithubId())
+                                            .build())
+                            .authorities(List.of(MEMBER))
+                            .build();
+        }
+        return member;
+    }
+
+    private void updateProfileImg(GithubUserInfo githubUserInfo, Member member) {
+        if (!member.getProfile().getProfileImg().equals(githubUserInfo.getProfileImg())) {
+            member.getProfile().updateProfileImg(githubUserInfo.getProfileImg());
+        }
     }
 }
