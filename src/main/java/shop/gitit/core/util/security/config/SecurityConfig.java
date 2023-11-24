@@ -47,11 +47,22 @@ public class SecurityConfig {
             http.apply(new MyCustomDsl())
                     .and()
                     .authorizeRequests()
+                    .antMatchers("/swagger-ui/**")
+                    .permitAll()
+                    // GITHUB
+                    .antMatchers("/v1/github/**")
+                    .authenticated()
                     // MEMBER
                     .antMatchers(
                             "/v1/members/login/**", "/v1/members/{member-id}/token/{refresh-token}")
                     .permitAll()
-                    .antMatchers("/v1/**")
+                    .antMatchers("/v1/members/**")
+                    .authenticated()
+                    // payment
+                    .antMatchers("/v1/pay/**")
+                    .authenticated()
+                    // SHOP
+                    .antMatchers("/v1/shop/**")
                     .authenticated();
             return http.build();
         } catch (Exception e) {
