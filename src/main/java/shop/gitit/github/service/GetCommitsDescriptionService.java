@@ -18,10 +18,7 @@ public class GetCommitsDescriptionService implements GetCommitsDescriptionUsecas
 
     @Override
     public GetCommitsDescriptionResDto getCommitsDescription(Long memberId) {
-        Member member =
-                memberRepository
-                        .findById(memberId)
-                        .orElseThrow(() -> new NoMemberException("해당 회원이 존재하지 않습니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(NoMemberException::new);
         String githubId = member.getProfile().getGithubId();
         return getCommitDescriptionPort.getCommitDescription(githubId);
     }

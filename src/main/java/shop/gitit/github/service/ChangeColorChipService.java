@@ -25,6 +25,6 @@ public class ChangeColorChipService implements ChangeColorChipUsecase {
     private GitHubInfo findGitHubInfo(ChangeColorChipReqDto req) {
         return gitHubInfoRepository
                 .findGitHubInfoByMemberId(req.getMemberId())
-                .orElseThrow(() -> new NoGitHubInfoException("깃허브 정보가 없습니다."));
+                .orElseThrow(NoGitHubInfoException::new);
     }
 }

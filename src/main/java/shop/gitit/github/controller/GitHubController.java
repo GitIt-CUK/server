@@ -1,6 +1,5 @@
 package shop.gitit.github.controller;
 
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class GitHubController {
 
     @GetMapping("/commits/description/{member-id}")
     public ResponseEntity<GetCommitsDescriptionResDto> getCommitsDescription(
-            @PathVariable(name = "member-id") long memberId) throws IOException {
+            @PathVariable(name = "member-id") long memberId) {
         return ResponseEntity.ok(getCommitsDescriptionUsecase.getCommitsDescription(memberId));
     }
 
