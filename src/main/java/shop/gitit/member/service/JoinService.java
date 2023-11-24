@@ -25,6 +25,7 @@ public class JoinService implements JoinUsecase {
         Member member = memberRepository.findByGithubId(githubUserInfo.getGithubId()).orElse(null);
         member = createMemberIfNull(githubUserInfo, member);
         memberRepository.save(member);
+        createGitHubInfoUsecase.createGitHubInfo(member.getId());
         updateProfileImg(githubUserInfo, member);
         return member;
     }
@@ -41,7 +42,6 @@ public class JoinService implements JoinUsecase {
                                             .build())
                             .authorities(List.of(MEMBER))
                             .build();
-            createGitHubInfoUsecase.createGitHubInfo(member.getId());
         }
         return member;
     }
