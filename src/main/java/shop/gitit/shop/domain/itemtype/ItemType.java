@@ -2,6 +2,7 @@ package shop.gitit.shop.domain.itemtype;
 
 import java.util.Arrays;
 import lombok.Getter;
+import shop.gitit.shop.exception.NoMatchingItemTypeException;
 
 @Getter
 public enum ItemType {
@@ -20,6 +21,6 @@ public enum ItemType {
         return Arrays.stream(ItemType.values())
                 .filter(type -> code.equals(type.getType()))
                 .findAny()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(NoMatchingItemTypeException::new);
     }
 }

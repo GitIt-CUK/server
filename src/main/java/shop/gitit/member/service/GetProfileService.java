@@ -22,14 +22,11 @@ public class GetProfileService implements GetProfileUsecase {
 
     @Override
     public GetMemberProfileResDto getMemberProfile(Long memberId) {
-        Member member =
-                memberRepository
-                        .findById(memberId)
-                        .orElseThrow(() -> new NoMemberException("해당 회원이 존재하지 않습니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(NoMemberException::new);
         GitHubInfo gitHubInfo =
                 gitHubInfoRepository
                         .findGitHubInfoByMemberId(memberId)
-                        .orElseThrow(() -> new NoGitHubInfoException("깃허브 정보가 존재하지 않습니다."));
+                        .orElseThrow(NoGitHubInfoException::new);
         return GetMemberProfileResDto.builder()
                 .memberId(member.getId())
                 .githubId(member.getProfile().getGithubId())

@@ -17,10 +17,7 @@ public class WithdrawnService implements WithdrawnUsecase {
 
     @Override
     public void withdrawMember(long memberId) {
-        Member member =
-                memberRepository
-                        .findById(memberId)
-                        .orElseThrow(() -> new NoMemberException("해당 회원이 존재하지 않습니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(NoMemberException::new);
         member.withdrawn();
     }
 }

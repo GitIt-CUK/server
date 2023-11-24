@@ -20,9 +20,7 @@ public class UpdateNickNameService implements UpdateNickNameUsecase {
     @Override
     public UpdateMemberNickNameResDto updateNickName(UpdateMemberNickNameReqDto dto) {
         Member member =
-                memberRepository
-                        .findById(dto.getMemberId())
-                        .orElseThrow(() -> new NoMemberException("해당 회원이 존재하지 않습니다."));
+                memberRepository.findById(dto.getMemberId()).orElseThrow(NoMemberException::new);
         member.getProfile().updateNickname(dto.getNickname());
         return UpdateMemberNickNameResDto.builder()
                 .nickname(member.getProfile().getNickname())

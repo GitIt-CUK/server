@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shop.gitit.github.exception.NoMatchingColorCodeException;
 import shop.gitit.github.support.githubinfo.grasscolor.GrassColorFixture;
 
 class GrassColorTest {
@@ -17,6 +18,6 @@ class GrassColorTest {
 
         // then
         assertThatThrownBy(() -> GrassColor.findColorByCode(code))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(NoMatchingColorCodeException.class);
     }
 }

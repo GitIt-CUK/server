@@ -29,12 +29,10 @@ public class AddPointService implements AddPointUsecase {
         GitHubInfo gitHubInfo =
                 gitHubInfoRepository
                         .findGitHubInfoByMemberId(memberId)
-                        .orElseThrow(() -> new NoGitHubInfoException("깃허브 정보가 없습니다."));
+                        .orElseThrow(NoGitHubInfoException::new);
         gitHubInfo.updateCommitCount(commitCount);
         Wallet wallet =
-                paymentRepository
-                        .findWalletByOwnerId(memberId)
-                        .orElseThrow(() -> new NoWalletException("지갑 정보가 없습니다."));
+                paymentRepository.findWalletByOwnerId(memberId).orElseThrow(NoWalletException::new);
         wallet.accumulatePoint(exchangeToPoint(commitCount));
         return AddPointResDto.builder().message("포인트 적립 완료되었습니다.").build();
     }

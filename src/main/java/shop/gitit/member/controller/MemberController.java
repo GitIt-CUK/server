@@ -26,7 +26,7 @@ public class MemberController {
 
     @PatchMapping("/profile/{member-id}")
     public ResponseEntity<UpdateMemberNickNameResDto> updateMemberNickName(
-            @PathVariable(name = "member-id") long memberId,
+            @PathVariable(name = "member-id") Long memberId,
             @RequestBody UpdateMemberNickNameReq req) {
         return ResponseEntity.ok(
                 updateNickNameUsecase.updateNickName(toUpdateMemberNickNameReqDto(memberId, req)));
@@ -34,12 +34,12 @@ public class MemberController {
 
     @GetMapping("/profile/{member-id}")
     public ResponseEntity<GetMemberProfileResDto> getMemberProfile(
-            @PathVariable(name = "member-id") long memberId) {
+            @PathVariable(name = "member-id") Long memberId) {
         return ResponseEntity.ok(getProfileUsecase.getMemberProfile(memberId));
     }
 
     @PatchMapping("/withdrawn/{member-id}")
-    public ResponseEntity withdrawMember(@PathVariable(name = "member-id") long memberId) {
+    public ResponseEntity withdrawMember(@PathVariable(name = "member-id") Long memberId) {
         withdrawnUsecase.withdrawMember(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

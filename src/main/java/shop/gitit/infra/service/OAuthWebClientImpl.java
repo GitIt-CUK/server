@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gitit.infra.exception.FailGetGitHubAccessToken;
-import shop.gitit.infra.exception.FailGetGitHubUserInfo;
+import shop.gitit.infra.exception.FailGetGitHubAccessTokenException;
+import shop.gitit.infra.exception.FailGetGitHubUserInfoException;
 import shop.gitit.member.service.dto.response.GithubUserInfo;
 import shop.gitit.member.service.dto.response.OAuthTokenResponse;
 import shop.gitit.member.service.port.out.OAuthWebClient;
@@ -61,7 +61,7 @@ public class OAuthWebClientImpl implements OAuthWebClient {
                 .retrieve()
                 .bodyToMono(OAuthTokenResponse.class)
                 .blockOptional()
-                .orElseThrow(() -> new FailGetGitHubAccessToken("깃허브 access token 획득 실패"));
+                .orElseThrow(FailGetGitHubAccessTokenException::new);
     }
 
     private MultiValueMap<String, String> makeTokenRequestBody(String code) {
@@ -81,7 +81,7 @@ public class OAuthWebClientImpl implements OAuthWebClient {
                 gitHubUserInfo.get("name"),
                 gitHubUserInfo.get("email"),
                 gitHubUserInfo.get("avatar_url"));
-        return GithubUserInfo.builder() // TODO 다른 소셜 로그인이 추가될 때 변경에 용이하도록 개선하기
+        return GithubUserInfo.builder()
                 .githubId((String) gitHubUserInfo.get("login"))
                 .nickname((String) gitHubUserInfo.get("name"))
                 .email((String) gitHubUserInfo.get("email"))
@@ -97,6 +97,6 @@ public class OAuthWebClientImpl implements OAuthWebClient {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                 .blockOptional()
-                .orElseThrow(() -> new FailGetGitHubUserInfo("깃허브 사용자 정보 조회 실패"));
+                .orElseThrow(FailGetGitHubUserInfoException::new);
     }
 }
