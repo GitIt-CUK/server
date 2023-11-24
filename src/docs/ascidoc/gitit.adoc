@@ -80,15 +80,3 @@ include::{snippets}/shop/draw_color_chip/http-request.adoc[]
 ==== Response
 
 include::{snippets}/shop/draw_color_chip/http-response.adoc[]
-
-== GitHub
-
-=== 커밋 요약 조회
-
-==== Request
-
-include::{snippets}/home/commits/description/http-request.adoc[]
-
-==== Response
-
-include::{snippets}/home/commits/description/http-response.adoc[]

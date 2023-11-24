@@ -9,6 +9,8 @@ public enum ExceptionEnum {
     NO_NICKNAME(601, "닉네임은 필수 입력 값입니다."),
     NICKNAME_LENGTH_VIOLATION(602, "닉네임은 최소 1글자 이상, 최대 6글자까지 가능합니다."),
     NO_MEMBER(603, "존재하지 않는 회원입니다."),
+    NO_REFRESH_TOKEN(604, "refresh token이 파기되었습니다. 로그인을 다시 하세요."),
+    NO_MATCHING_REFRESH_TOKEN(605, "요청에 사용한 refresh token이 서버측에 저장된 refresh token과 일치하지 않습니다."),
 
     // GITHUB 700
     COMMIT_COUNT_VIOLATION(700, "누적 커밋 수는 최소 0이상이야 합니다."),

@@ -1,4 +1,4 @@
-package shop.gitit.infra.exception.handler;
+package shop.gitit.core.exception.handler;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,7 +9,7 @@ import shop.gitit.infra.exception.FailConnectToGitHubException;
 import shop.gitit.infra.exception.FailGetGitHubAccessTokenException;
 import shop.gitit.infra.exception.FailGetGitHubUserInfoException;
 
-@RestControllerAdvice(basePackages = {"shop.gitit.infra"})
+@RestControllerAdvice
 public class InfraExceptionHandler {
 
     @Deprecated // 현재는 사용하고 있지 않은 라이브러리입니다.
