@@ -19,6 +19,7 @@ public enum ExceptionEnum {
 
     // PAYMENT 800
     NO_WALLET(700, "지갑 정보가 없습니다."),
+    POINT_VIOLATION(701, "포인트는 0 이상이어야 합니다."),
 
     // SHOP 900
     IS_NULL(1000, "필수 입력값이 누락되었습니다."),

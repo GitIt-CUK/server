@@ -7,6 +7,7 @@ import shop.gitit.core.exception.ExceptionEnum;
 import shop.gitit.core.template.ErrorMessage;
 import shop.gitit.github.exception.NoMatchingColorCodeException;
 import shop.gitit.payment.exception.NoWalletException;
+import shop.gitit.payment.exception.PointViolationException;
 
 @RestControllerAdvice
 public class PaymentExceptionHandler {
@@ -30,6 +31,16 @@ public class PaymentExceptionHandler {
                         ErrorMessage.builder()
                                 .errorCode(ExceptionEnum.NO_MATCHING_COLOR_CODE.getErrorCode())
                                 .message(ExceptionEnum.NO_MATCHING_COLOR_CODE.getMessage())
+                                .build());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorMessage> pointViolationException(PointViolationException e) {
+        return ResponseEntity.badRequest()
+                .body(
+                        ErrorMessage.builder()
+                                .errorCode(ExceptionEnum.POINT_VIOLATION.getErrorCode())
+                                .message(ExceptionEnum.POINT_VIOLATION.getMessage())
                                 .build());
     }
 }
