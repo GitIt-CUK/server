@@ -20,6 +20,11 @@ public enum ExceptionEnum {
 
     // SHOP 900
     IS_NULL(1000, "필수 입력값이 누락되었습니다."),
+
+    // INFRA 1000
+    FAIL_CONNECT_TO_GITHUB(1000, "kohsuke - 깃허브 정보를 불러오는데 실패했습니다."),
+    FAIL_GET_GITHUB_ACCESSTOKEN(1001, "OAuth - 깃허브 access token을 획득하지 못했습니다."),
+    FAIL_GET_GITHUB_USER_INFO(1002, "OAuth - 깃허브 사용자 정보를 불러오지 못했습니다."),
     ;
 
     private int errorCode;
