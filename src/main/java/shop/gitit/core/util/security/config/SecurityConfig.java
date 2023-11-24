@@ -47,6 +47,8 @@ public class SecurityConfig {
             http.apply(new MyCustomDsl())
                     .and()
                     .authorizeRequests()
+                    .antMatchers("/swagger-ui/**")
+                    .permitAll()
                     // GITHUB
                     .antMatchers("/v1/github/**")
                     .authenticated()
