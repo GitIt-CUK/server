@@ -66,9 +66,9 @@ public class OAuthWebClientImpl implements OAuthWebClient {
 
     private MultiValueMap<String, String> makeTokenRequestBody(String code) {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("client_id", clientId);
+        formData.add("client_secret", clientSecret);
         formData.add("code", code);
-        formData.add("grant_type", "authorization_code");
-        formData.add("redirect_uri", redirectUri);
         return formData;
     }
 

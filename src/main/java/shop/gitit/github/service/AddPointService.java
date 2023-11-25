@@ -34,6 +34,6 @@ public class AddPointService implements AddPointUsecase {
         Wallet wallet =
                 paymentRepository.findWalletByOwnerId(memberId).orElseThrow(NoWalletException::new);
         wallet.accumulatePoint(exchangeToPoint(commitCount));
-        return AddPointResDto.builder().message("포인트 적립 완료되었습니다.").build();
+        return AddPointResDto.builder().message("포인트 적립이 완료되었습니다.").build();
     }
 }
