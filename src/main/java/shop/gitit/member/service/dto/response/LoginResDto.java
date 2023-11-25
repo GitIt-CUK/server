@@ -8,6 +8,7 @@ import lombok.Getter;
 public class LoginResDto {
 
     private Long memberId;
+    private String nickname;
     private String refreshToken;
     private String accessToken;
 }

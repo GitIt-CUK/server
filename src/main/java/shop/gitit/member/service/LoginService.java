@@ -42,6 +42,7 @@ public class LoginService implements LoginUsecase {
                         .build());
         return LoginResDto.builder()
                 .memberId(member.getId())
+                .nickname(member.getProfile().getNickname())
                 .refreshToken(jwtToken.getRefreshToken())
                 .accessToken(jwtToken.getAccessToken())
                 .build();
