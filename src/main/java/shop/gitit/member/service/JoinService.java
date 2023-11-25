@@ -22,27 +22,22 @@ public class JoinService implements JoinUsecase {
 
     @Override
     public Member join(GithubUserInfo githubUserInfo) {
-        Member member = memberRepository.findByGithubId(githubUserInfo.getGithubId()).orElse(null);
-        member = createMemberIfNull(githubUserInfo, member);
+        Member member =
+                memberRepository
+                        .findByGithubId(githubUserInfo.getGithubId())
+                        .orElse(
+                                Member.builder()
+                                        .profile(
+                                                MemberProfile.builder()
+                                                        .profileImg(githubUserInfo.getProfileImg())
+                                                        .githubId(githubUserInfo.getGithubId())
+                                                        .nickname(githubUserInfo.getGithubId())
+                                                        .build())
+                                        .authorities(List.of(MEMBER))
+                                        .build());
         memberRepository.save(member);
         createGitHubInfoUsecase.createGitHubInfo(member.getId());
         updateProfileImg(githubUserInfo, member);
-        return member;
-    }
-
-    private Member createMemberIfNull(GithubUserInfo githubUserInfo, Member member) {
-        if (member == null) {
-            member =
-                    Member.builder()
-                            .profile(
-                                    MemberProfile.builder()
-                                            .profileImg(githubUserInfo.getProfileImg())
-                                            .githubId(githubUserInfo.getGithubId())
-                                            .nickname(githubUserInfo.getGithubId())
-                                            .build())
-                            .authorities(List.of(MEMBER))
-                            .build();
-        }
         return member;
     }
 

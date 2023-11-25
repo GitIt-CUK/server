@@ -16,6 +16,8 @@ public class CreateGitHubUserInfoService implements CreateGitHubInfoUsecase {
 
     @Override
     public void createGitHubInfo(Long memberId) {
-        gitHubInfoRepository.save(new GitHubInfo(memberId));
+        if (gitHubInfoRepository.findGitHubInfoByMemberId(memberId).isEmpty()) {
+            gitHubInfoRepository.save(new GitHubInfo(memberId));
+        }
     }
 }
